@@ -346,7 +346,7 @@
             <!-- KAFELKI INTERAKTYWNE -->
             <div class="dashboard-grid">
                 
-                <!-- KAFELEK 1: ŁAMACZ SZYFRÓW (BŁĄD WYRZUCA STRONĘ 404) -->
+                <!-- KAFELEK 1: ŁAMACZ SZYFRÓW (BŁĄD PRZEKIEROWUJE NA NIEISTNIEJĄCY PLIK) -->
                 <div class="dash-card">
                     <div>
                         <span class="card-tag">🎮 ŁAMACZ SZYFRÓW // DISCORD</span>
@@ -417,7 +417,7 @@
     <script>
         const SECRET_CODE = "404";
 
-        /* ŁAMACZ SZYFRÓW - BŁĘDNY KOD WYRZUCA STRONĘ 404 */
+        /* ŁAMACZ SZYFRÓW - BŁĘDNY KOD PRZEKIEROWUJE NA NIEISTNIEJĄCY PLIK 404 */
         function checkCode() {
             const d1 = document.getElementById('digit1').value;
             const d2 = document.getElementById('digit2').value;
@@ -432,8 +432,8 @@
                 status.innerHTML = "🔓 KOD POPRAWNY! Przełamano błąd.";
                 discordBox.style.display = "block";
             } else {
-                // Przekierowanie na plik 404.html (lub standardowy błąd, jeśli plik nie istnieje)
-                window.location.href = "404.html";
+                // Próba wejścia w nieistniejący plik wywoła błąd 404
+                window.location.href = "nieistniejacy-zasob-404.html";
             }
         }
 
