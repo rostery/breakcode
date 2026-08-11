@@ -5,12 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>breakcode // Portfolio</title>
     <link rel="icon" type="image/png" href="ksiezyc.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
+        .system-bar {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            background: rgba(8, 9, 17, 0.8);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            padding: 10px 18px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted, #94a3b8);
+        }
+
         .portfolio-main {
             padding: 30px 0;
             max-width: 900px;
@@ -72,7 +86,7 @@
 <body>
 
     <div class="container" style="position: relative; z-index: 1;">
-        <!-- NAWIGACJA -->
+        <!-- PEŁNA NAWIGACJA -->
         <header>
             <a href="index.html" style="text-decoration: none; color: inherit;">
                 <div class="logo" style="display: flex; align-items: center; gap: 10px;">
@@ -92,6 +106,19 @@
             </nav>
         </header>
 
+        <!-- GLOBALNY PASEK CZASU SYSTEMOWEGO -->
+        <div class="system-bar">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                CZAS SESJI: <span id="globalSessionTimer" style="color: var(--accent-moon, #38bdf8); font-weight: 700;">00:00</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                GODZINA: <span id="globalClockTime" style="color: var(--accent-moon, #38bdf8); font-weight: 700;">00:00:00</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                STATUS: <span style="color: #4ade80; font-weight: 700;">● SYSTEM AKTYWNY</span>
+            </div>
+        </div>
+
         <main class="portfolio-main">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
                 <h1 style="color: #fff; font-family: var(--font-heading); margin: 0;">Twoje Projekty & Portfolio</h1>
@@ -101,7 +128,7 @@
             <!-- KAFELKI PROJEKTÓW -->
             <div class="portfolio-grid">
                 
-                <!-- KAFELEK PROJEKTU 1 (Prowadzi do projekt-1.html) -->
+                <!-- KAFELEK PROJEKTU 1 -->
                 <a href="projekt-1.html" class="portfolio-card">
                     <img src="zdjecie-projektu-1.jpg" alt="Projekt 1" class="portfolio-image" onerror="this.src='https://via.placeholder.com/400x160?text=Brak+zdjęcia'">
                     <div class="portfolio-content">
@@ -112,7 +139,47 @@
 
             </div>
         </main>
+
+        <!-- STOPKA -->
+        <footer style="margin-top: 60px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding: 25px 0; text-align: center;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; font-family: monospace; font-size: 0.85rem;">
+                <div style="color: var(--text-muted);">
+                    © breakcode // Wszelkie prawa zastrzeżone.
+                </div>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+                    <a href="polityka.html" style="color: var(--accent-moon); text-decoration: none;">Regulamin i Polityka Prywatności</a>
+                    <span style="color: var(--text-muted);">|</span>
+                    <span style="color: #4ade80;">● ANONYMOUS_NODE</span>
+                </div>
+            </div>
+        </footer>
     </div>
 
+    <!-- GLOBALNY SKRYPT LICZNIKA CZASU SESJI -->
+    <script>
+        (function() {
+            let secondsSpent = parseInt(sessionStorage.getItem('breakcode_session_time')) || 0;
+
+            function updateClockAndTimer() {
+                secondsSpent++;
+                sessionStorage.setItem('breakcode_session_time', secondsSpent);
+
+                const mins = Math.floor(secondsSpent / 60).toString().padStart(2, '0');
+                const secs = (secondsSpent % 60).toString().padStart(2, '0');
+
+                const timerEl = document.getElementById('globalSessionTimer');
+                const clockEl = document.getElementById('globalClockTime');
+
+                if (timerEl) timerEl.innerText = `${mins}:${secs}`;
+                if (clockEl) {
+                    const now = new Date();
+                    clockEl.innerText = now.toLocaleTimeString('pl-PL');
+                }
+            }
+
+            updateClockAndTimer();
+            setInterval(updateClockAndTimer, 1000);
+        })();
+    </script>
 </body>
 </html>
