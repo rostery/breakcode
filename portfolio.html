@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio // breakcode</title>
+    <title>breakcode // Portfolio</title>
     <link rel="icon" type="image/png" href="ksiezyc.png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,129 +11,80 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        .portfolio-container { max-width: 900px; margin: 40px auto; padding: 20px; }
-        
-        #lockScreen {
-            background-color: var(--card-bg, #121526);
-            border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+        .portfolio-main {
+            padding: 30px 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Siatka kafelków portfolio */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        /* Pojedynczy kafel projektu */
+        .portfolio-card {
+            background: var(--card-bg, rgba(18, 21, 38, 0.85));
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
             border-radius: 12px;
-            padding: 30px;
-            text-align: center;
-            max-width: 550px;
-            margin: 40px auto;
-        }
-
-        .lock-input {
-            width: 100%;
-            padding: 12px 15px;
-            background-color: #080911;
-            border: 1px solid var(--border-color, rgba(255,255,255,0.1));
-            color: #fff;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 1.1rem;
-            text-align: center;
-            outline: none;
-            margin-bottom: 15px;
-            box-sizing: border-box;
-        }
-        .lock-input:focus { border-color: var(--accent-moon, #38bdf8); }
-
-        .btn-unlock {
-            background-color: var(--accent-moon, #38bdf8);
-            color: #000;
-            border: none;
-            padding: 12px 24px;
-            font-weight: 700;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-            transition: opacity 0.2s;
-        }
-        .btn-unlock:hover { opacity: 0.9; }
-
-        /* MINI-GRA I TABELA WYNIKÓW */
-        .game-wrapper {
-            margin-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .game-overlay-msg {
-            position: absolute;
-            top: 55%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(8, 9, 17, 0.9);
-            border: 1px solid var(--accent-moon, #38bdf8);
-            color: #fff;
-            padding: 15px 20px;
-            border-radius: 6px;
-            font-family: monospace;
-            font-size: 0.85rem;
-            pointer-events: none;
-            transition: opacity 0.3s;
-            z-index: 10;
-        }
-
-        canvas {
-            background-color: #050508;
-            border: 1px solid var(--border-color, rgba(255,255,255,0.2));
-            border-radius: 8px;
-            display: block;
-            margin: 10px auto;
-            max-width: 100%;
-            cursor: crosshair;
-        }
-
-        .score-board {
-            margin-top: 15px;
-            background: #080911;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            padding: 12px;
-            font-family: monospace;
-            font-size: 0.8rem;
-            text-align: left;
-        }
-        .score-board h4 {
-            color: #38bdf8;
-            margin: 0 0 8px 0;
-            text-align: center;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
-        .score-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            max-height: 90px;
-            overflow-y: auto;
-        }
-        .score-item {
+            overflow: hidden;
             display: flex;
-            justify-content: space-between;
-            padding: 3px 6px;
-            border-bottom: 1px dashed rgba(255,255,255,0.05);
-            color: #94a3b8;
+            flex-direction: column;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            text-decoration: none;
         }
 
-        #portfolioContent { display: none; }
+        .portfolio-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-moon, #38bdf8);
+        }
+
+        /* Obrazek w kafelku */
+        .portfolio-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+        }
+
+        /* Treść w kafelku */
+        .portfolio-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .portfolio-title {
+            color: #fff;
+            font-size: 1.2rem;
+            margin: 0 0 8px 0;
+            font-family: var(--font-heading);
+        }
+
+        .portfolio-desc {
+            color: var(--text-muted, #94a3b8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
 
     <div class="container" style="position: relative; z-index: 1;">
+        <!-- NAWIGACJA -->
         <header>
             <a href="index.html" style="text-decoration: none; color: inherit;">
                 <div class="logo" style="display: flex; align-items: center; gap: 10px;">
-                    <img src="ksiezyc.png" id="moonLogo" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; cursor: pointer;" onerror="this.style.display='none'">
+                    <img src="ksiezyc.png" id="moonLogo" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
                     <div>breakcode</div>
                 </div>
             </a>
-            <nav>
+            <nav id="mainNav">
                 <a href="index.html">✦ Strona główna</a>
                 <a href="blog.html">✦ Blog</a>
                 <a href="masz-pomysl.html">✦ Masz pomysł?</a>
@@ -145,321 +96,38 @@
             </nav>
         </header>
 
-        <div class="system-bar" style="display: flex; gap: 20px; flex-wrap: wrap; background: rgba(8, 9, 17, 0.8); border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px 18px; border-radius: 8px; margin-bottom: 25px; font-family: monospace; font-size: 0.85rem; color: #94a3b8;">
-            <div>CZAS SESJI: <span id="globalSessionTimer" style="color: #38bdf8; font-weight: 700;">00:00</span></div>
-            <div>GODZINA: <span id="globalClockTime" style="color: #38bdf8; font-weight: 700;">00:00:00</span></div>
-            <div>STATUS: <span style="color: #4ade80; font-weight: 700;">● OCHRONA AKTYWNA</span></div>
-        </div>
-
-        <main class="portfolio-container">
-            
-            <!-- EKRAN BLOKADY -->
-            <div id="lockScreen">
-                <span style="color: var(--accent-moon); font-size: 0.75rem; font-weight: 700; letter-spacing: 2px;">SECURE AREA // RESTRICTED ACCESS</span>
-                <h1 style="color: #fff; font-size: 1.8rem; margin: 15px 0;">Strefa zabezpieczona hasłem</h1>
-                
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px;">
-                    Portfolio dostępne jest na hasło ukryte na stronie. 
-                </p>
-
-                <form id="passwordForm" onsubmit="checkPassword(event)">
-                    <input type="password" id="passInput" class="lock-input" required placeholder="Wpisz hasło...">
-                    <button type="submit" class="btn-unlock">Odblokuj Portfolio →</button>
-                    <p id="errorMsg" style="color: #ef4444; font-size: 0.85rem; margin-top: 10px; display: none;">Niepoprawne hasło. Szukaj dalej na stronie!</p>
-                </form>
-
-                <!-- MINI GRA: STRZELANKA AKTYWOWANA KLIKNIĘCIEM -->
-                <div class="game-wrapper" id="gameContainer">
-                    <p style="color: #fff; font-size: 0.8rem; margin-bottom: 4px; font-family: monospace;">
-                        👾 <span style="color: #ef4444;">MINIGRA:</span> Kliknij w okno gry, aby wystartować! (Strzałki/Mysz = ruch, Spacja/Klik = strzał)
-                    </p>
-                    
-                    <div style="position: relative; display: inline-block;">
-                        <div id="gameOverlayMsg" class="game-overlay-msg">KLIKNIJ ABY ROZPOCZĘĆ GRĘ</div>
-                        <canvas id="shooterCanvas" width="450" height="180"></canvas>
-                    </div>
-
-                    <div style="font-family: monospace; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
-                        WYNIK: <span id="currentScore" style="color: #4ade80; font-weight: 700;">0</span>
-                    </div>
-
-                    <!-- TABELA NAJLEPSZYCH WYNIKÓW -->
-                    <div class="score-board">
-                        <h4>✦ TABELA NAJLEPSZYCH WYNIKÓW ✦</h4>
-                        <ul id="scoreList" class="score-list">
-                            <li class="score-item"><span>Brak wyników</span><span>-</span></li>
-                        </ul>
-                    </div>
-                </div>
+        <main class="portfolio-main">
+            <!-- Tutaj wstawiasz swoją dotychczasową logikę hasła / zawartość zabezpieczoną -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h1 style="color: #fff; font-family: var(--font-heading); margin: 0;">Twoje Projekty & Portfolio</h1>
+                <!-- Przycisk blokowania, jeśli go używasz -->
+                <button id="lockBtn" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;">Zablokuj ponownie</button>
             </div>
 
-            <!-- WŁAŚCIWA ZAWARTOŚĆ PORTFOLIO -->
-            <div id="portfolioContent">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                    <h1 style="font-size: 2.2rem; color: #ffffff; margin: 0;">Twoje Projekty & Portfolio</h1>
-                    <button onclick="lockPortfolio()" style="background: rgba(239,68,68,0.2); border: 1px solid #ef4444; color: #ef4444; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Zablokuj ponownie</button>
-                </div>
+            <!-- MIEJSCE NA KAFELKI PROJEKTÓW -->
+            <div class="portfolio-grid">
                 
-                <div style="background: var(--card-bg, #121526); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px;">
-                    <h3 style="color: #fff; margin-top: 0;">Projekt komercyjny / Zaawansowany System</h3>
-                    <p style="color: var(--text-muted);">Tutaj umieszczasz swoje projekty, opisy kodu, linki do GitHub itp. Gratulacje za odgadnięcie hasła!</p>
-                </div>
-            </div>
+                <!-- KAFELEK 1: Twój pierwszy projekt -->
+                <a href="projekt-1.html" class="portfolio-card">
+                    <img src="zdjecie-projektu-1.jpg" alt="Projekt 1" class="portfolio-image" onerror="this.src='https://via.placeholder.com/400x160?text=Brak+zdjęcia'">
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Nazwa Pierwszego Projektu</h3>
+                        <p class="portfolio-desc">Krótki opis tego, co zrobiono w projekcie, użyte technologie itp.</p>
+                    </div>
+                </a>
 
+                <!-- KAFELEK 2: Kolejny projekt (możesz powielać ten blok dla nowych wpisów) -->
+                <a href="projekt-2.html" class="portfolio-card">
+                    <img src="zdjecie-projektu-2.jpg" alt="Projekt 2" class="portfolio-image" onerror="this.src='https://via.placeholder.com/400x160?text=Brak+zdjęcia'">
+                    <div class="portfolio-content">
+                        <h3 class="portfolio-title">Nazwa Drugiego Projektu</h3>
+                        <p class="portfolio-desc">Krótki opis drugiego projektu...</p>
+                    </div>
+                </a>
+
+            </div>
         </main>
     </div>
 
-    <!-- SKRYPTY -->
-    <script>
-        const CORRECT_PASS = "ksiezyc";
-
-        document.addEventListener('DOMContentLoaded', function() {
-            if (sessionStorage.getItem('portfolio_unlocked') === 'true') {
-                showPortfolio();
-            } else {
-                initShooterGame();
-                loadHighScores();
-            }
-        });
-
-        function checkPassword(e) {
-            e.preventDefault();
-            const val = document.getElementById('passInput').value.trim().toLowerCase();
-            if (val === CORRECT_PASS) {
-                sessionStorage.setItem('portfolio_unlocked', 'true');
-                showPortfolio();
-            } else {
-                document.getElementById('errorMsg').style.display = 'block';
-            }
-        }
-
-        function showPortfolio() {
-            document.getElementById('lockScreen').style.display = 'none';
-            document.getElementById('portfolioContent').style.display = 'block';
-        }
-
-        function lockPortfolio() {
-            sessionStorage.removeItem('portfolio_unlocked');
-            location.reload();
-        }
-
-        /* ----- MINI-GRA: STRZELANKA AKTYWOWANA KLIKNIĘCIEM ----- */
-        function initShooterGame() {
-            const canvas = document.getElementById('shooterCanvas');
-            const ctx = canvas.getContext('2d');
-            const scoreEl = document.getElementById('currentScore');
-            const overlayMsg = document.getElementById('gameOverlayMsg');
-
-            let score = 0;
-            let gameOver = false;
-            let isRunning = false;
-            let animationId = null;
-            let keys = {};
-
-            let player = { x: 215, y: 145, width: 20, height: 25, speed: 5 };
-            let bullets = [];
-            let ghosts = [];
-            let spawnTimer = 0;
-
-            // Kliknięcie w kanwę uruchamia lub resetuje grę
-            canvas.addEventListener('click', () => {
-                if (!isRunning) {
-                    isRunning = true;
-                    overlayMsg.style.opacity = '0';
-                    if (gameOver) resetGame();
-                    loop();
-                } else {
-                    // Dodatkowy strzał po kliknięciu podczas gry
-                    shoot();
-                }
-            });
-
-            // Sterowanie myszką (ruch gracza za kursorem wewnątrz kanwy)
-            canvas.addEventListener('mousemove', (e) => {
-                if (!isRunning || gameOver) return;
-                const rect = canvas.getBoundingClientRect();
-                const mouseX = e.clientX - rect.left;
-                player.x = mouseX - player.width / 2;
-                // Ograniczenie do krawędzi
-                if (player.x < 10) player.x = 10;
-                if (player.x > canvas.width - player.width - 10) player.x = canvas.width - player.width - 10;
-            });
-
-            window.addEventListener('keydown', (e) => {
-                if (!isRunning) return;
-                keys[e.code] = true;
-                if (e.code === 'Space') {
-                    e.preventDefault();
-                    shoot();
-                }
-                if (gameOver && e.code === 'Enter') {
-                    resetGame();
-                }
-            });
-
-            window.addEventListener('keyup', (e) => { keys[e.code] = false; });
-
-            function shoot() {
-                if (gameOver || !isRunning) return;
-                bullets.push({ x: player.x + player.width / 2 - 2, y: player.y, width: 4, height: 10, speed: 7 });
-            }
-
-            function resetGame() {
-                score = 0;
-                bullets = [];
-                ghosts = [];
-                player.x = 215;
-                gameOver = false;
-                scoreEl.innerText = score;
-                overlayMsg.style.opacity = '0';
-            }
-
-            function update() {
-                if (!isRunning || gameOver) return;
-
-                // Sterowanie klawiaturą (strzałki / A-D) jako alternatywa dla myszki
-                if ((keys['ArrowLeft'] || keys['KeyA']) && player.x > 10) player.x -= player.speed;
-                if ((keys['ArrowRight'] || keys['KeyD']) && player.x < canvas.width - player.width - 10) player.x += player.speed;
-
-                for (let i = bullets.length - 1; i >= 0; i--) {
-                    bullets[i].y -= bullets[i].speed;
-                    if (bullets[i].y < 0) bullets.splice(i, 1);
-                }
-
-                spawnTimer++;
-                if (spawnTimer > 45) {
-                    ghosts.push({
-                        x: Math.random() * (canvas.width - 30),
-                        y: -25,
-                        width: 22,
-                        height: 25,
-                        speed: 1.5 + Math.random() * 1.5
-                    });
-                    spawnTimer = 0;
-                }
-
-                for (let i = ghosts.length - 1; i >= 0; i--) {
-                    ghosts[i].y += ghosts[i].speed;
-
-                    if (
-                        player.x < ghosts[i].x + ghosts[i].width &&
-                        player.x + player.width > ghosts[i].x &&
-                        player.y < ghosts[i].y + ghosts[i].height &&
-                        player.y + player.height > ghosts[i].y
-                    ) {
-                        gameOver = true;
-                        isRunning = false;
-                        handleGameOver();
-                    }
-
-                    for (let j = bullets.length - 1; j >= 0; j--) {
-                        if (
-                            bullets[j].x < ghosts[i].x + ghosts[i].width &&
-                            bullets[j].x + bullets[j].width > ghosts[i].x &&
-                            bullets[j].y < ghosts[i].y + ghosts[i].height &&
-                            bullets[j].y + bullets[j].height > ghosts[i].y
-                        ) {
-                            ghosts.splice(i, 1);
-                            bullets.splice(j, 1);
-                            score += 10;
-                            scoreEl.innerText = score;
-                            break;
-                        }
-                    }
-
-                    if (ghosts[i] && ghosts[i].y > canvas.height) {
-                        ghosts.splice(i, 1);
-                    }
-                }
-            }
-
-            function draw() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                ctx.strokeStyle = 'rgba(56, 189, 248, 0.05)';
-                ctx.lineWidth = 1;
-                for (let i = 0; i < canvas.width; i += 30) {
-                    ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
-                }
-
-                // Postać gracza
-                ctx.fillStyle = '#cbd5e1';
-                ctx.fillRect(player.x, player.y, player.width, player.height);
-                ctx.fillStyle = '#f87171';
-                ctx.fillRect(player.x + 6, player.y - 6, 8, 8);
-
-                // Pociski
-                ctx.fillStyle = '#38bdf8';
-                bullets.forEach(b => ctx.fillRect(b.x, b.y, b.width, b.height));
-
-                // Potwory
-                ghosts.forEach(g => {
-                    ctx.fillStyle = '#1e293b';
-                    ctx.fillRect(g.x, g.y, g.width, g.height);
-                    ctx.fillStyle = '#ef4444';
-                    ctx.fillRect(g.x + 4, g.y + 6, 3, 3);
-                    ctx.fillRect(g.x + 15, g.y + 6, 3, 3);
-                });
-
-                if (gameOver) {
-                    ctx.fillStyle = 'rgba(0,0,0,0.85)';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                    ctx.fillStyle = '#ef4444';
-                    ctx.font = 'bold 15px monospace';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('SYSTEM SKRAŚHOWANY PRZEZ POTWORY', canvas.width / 2, 65);
-
-                    ctx.fillStyle = '#fff';
-                    ctx.font = '11px monospace';
-                    ctx.fillText('Kliknij lub wciśnij [ENTER], aby zagrać ponownie', canvas.width / 2, 100);
-                    ctx.textAlign = 'left';
-                }
-            }
-
-            function loop() {
-                update();
-                draw();
-                if (isRunning && !gameOver) {
-                    animationId = requestAnimationFrame(loop);
-                }
-            }
-
-            draw();
-        }
-
-        /* ----- ZARZĄDZANIE TABELĄ WYNIKÓW ----- */
-        function handleGameOver() {
-            const overlayMsg = document.getElementById('gameOverlayMsg');
-            overlayMsg.innerText = "KONIEC GRY! KLIKNIJ ABY ZAGRAĆ PONOWNIE";
-            overlayMsg.style.opacity = '1';
-
-            let playerName = prompt("Koniec gry! Twój wynik to: " + document.getElementById('currentScore').innerText + "\nPodaj swój pseudonim do tabeli wyników:") || "Anonim";
-            let scoreVal = parseInt(document.getElementById('currentScore').innerText);
-
-            let highScores = JSON.parse(localStorage.getItem('breakcode_highscores')) || [];
-            highScores.push({ name: playerName.slice(0, 10), score: scoreVal });
-            highScores.sort((a, b) => b.score - a.score);
-            highScores = highScores.slice(0, 5);
-
-            localStorage.setItem('breakcode_highscores', JSON.stringify(highScores));
-            loadHighScores();
-        }
-
-        function loadHighScores() {
-            const listEl = document.getElementById('scoreList');
-            let highScores = JSON.parse(localStorage.getItem('breakcode_highscores')) || [];
-
-            if (highScores.length === 0) {
-                listEl.innerHTML = '<li class="score-item"><span>Brak zapisanych wyników</span><span>-</span></li>';
-                return;
-            }
-
-            listEl.innerHTML = '';
-            highScores.forEach((item, index) => {
-                listEl.innerHTML += `<li class="score-item"><span>${index + 1}. ${item.name}</span><span style="color: #4ade80;">${item.score} pkt</span></li>`;
-            });
-        }
-    </script>
 </body>
 </html>
