@@ -436,7 +436,7 @@
             }
         }
 
-        /* OBSŁUGA KLAWISZA ENTER DLA PÓL SZYFRU */
+        /* OBSŁUGA PÓL SZYFRU (AUTOMATYCZNE PRZECHODZENIE I ENTER) */
         document.querySelectorAll('.code-input').forEach((input, index, inputs) => {
             input.addEventListener('input', () => {
                 if (input.value.length === 1 && index < inputs.length - 1) {
@@ -444,7 +444,6 @@
                 }
             });
 
-            // Zatwierdzanie Enterem
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     checkCode();
