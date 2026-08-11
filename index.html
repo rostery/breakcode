@@ -280,7 +280,7 @@
 </head>
 <body>
 
-    <!-- EKRAN AWARII DLA ANKIETY (PRZYCISK NIE) -->
+    <!-- EKRAN AWARII DLA ANKIETY (TYLKO DLA PRZYCISKU NIE) -->
     <div id="infectionOverlay" class="glitch-screen-flicker">
         <div class="error-code">⚠️ You shouldn't have done that</div>
         <div class="error-sub">System security breach detected. Session memory has been temporarily locked.</div>
@@ -346,7 +346,7 @@
             <!-- KAFELKI INTERAKTYWNE -->
             <div class="dashboard-grid">
                 
-                <!-- KAFELEK 1: ŁAMACZ SZYFRÓW (BŁĄD 404 TYLKO NA TABLICY) -->
+                <!-- KAFELEK 1: ŁAMACZ SZYFRÓW -->
                 <div class="dash-card">
                     <div>
                         <span class="card-tag">🎮 ŁAMACZ SZYFRÓW // DISCORD</span>
@@ -373,7 +373,7 @@
                     </div>
                 </div>
 
-                <!-- KAFELEK 2: ANKIETA (NIE = GLITCH I BLOKADA STRONY) -->
+                <!-- KAFELEK 2: ANKIETA (NIE = GLITCH I BLOKADA) -->
                 <div class="dash-card" id="pollCard">
                     <div>
                         <span class="card-tag">📊 ANKIETA SYSTEMOWA // SYSTEM_CHECK</span>
@@ -417,7 +417,7 @@
     <script>
         const SECRET_CODE = "404";
 
-        /* ŁAMACZ SZYFRÓW - WYŚWIETLA BŁĄD 404 TYLKO NA TABLICY */
+        /* ŁAMACZ SZYFRÓW - WYŚWIETLA BŁĄD 404 TYLKO NA TABLICY I NIC WIĘCEJ */
         function checkCode() {
             const d1 = document.getElementById('digit1').value;
             const d2 = document.getElementById('digit2').value;
@@ -438,7 +438,7 @@
             }
         }
 
-        /* EKRAN AWARII / INFEKCJI - URUCHAMIANY TYLKO PO KLIKNIĘCIU NIE W ANKIECIE */
+        /* EKRAN AWARII - URUCHAMIANY WYŁĄCZNIE PRZEZ PRZYCISK NIE W ANKIECIE */
         function triggerInfection() {
             const overlay = document.getElementById('infectionOverlay');
             const countdownEl = document.getElementById('lockCountdown');
