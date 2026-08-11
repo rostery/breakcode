@@ -346,7 +346,7 @@
             <!-- KAFELKI INTERAKTYWNE -->
             <div class="dashboard-grid">
                 
-                <!-- KAFELEK 1: ŁAMACZ SZYFRÓW (BŁĄD PRZEKIEROWUJE NA NIEISTNIEJĄCY PLIK) -->
+                <!-- KAFELEK 1: ŁAMACZ SZYFRÓW -->
                 <div class="dash-card">
                     <div>
                         <span class="card-tag">🎮 ŁAMACZ SZYFRÓW // DISCORD</span>
@@ -417,7 +417,7 @@
     <script>
         const SECRET_CODE = "404";
 
-        /* ŁAMACZ SZYFRÓW - BŁĘDNY KOD PRZEKIEROWUJE NA NIEISTNIEJĄCY PLIK 404 */
+        /* ŁAMACZ SZYFRÓW */
         function checkCode() {
             const d1 = document.getElementById('digit1').value;
             const d2 = document.getElementById('digit2').value;
@@ -432,10 +432,25 @@
                 status.innerHTML = "🔓 KOD POPRAWNY! Przełamano błąd.";
                 discordBox.style.display = "block";
             } else {
-                // Próba wejścia w nieistniejący plik wywoła błąd 404
                 window.location.href = "nieistniejacy-zasob-404.html";
             }
         }
+
+        /* OBSŁUGA KLAWISZA ENTER DLA PÓL SZYFRU */
+        document.querySelectorAll('.code-input').forEach((input, index, inputs) => {
+            input.addEventListener('input', () => {
+                if (input.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+
+            // Zatwierdzanie Enterem
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    checkCode();
+                }
+            });
+        });
 
         /* EKRAN AWARII - URUCHAMIANY WYŁĄCZNIE PRZEZ PRZYCISK NIE W ANKIECIE */
         function triggerInfection() {
@@ -473,14 +488,6 @@
         function blockContextMenu(e) {
             e.preventDefault();
         }
-
-        document.querySelectorAll('.code-input').forEach((input, index, inputs) => {
-            input.addEventListener('input', () => {
-                if (input.value.length === 1 && index < inputs.length - 1) {
-                    inputs[index + 1].focus();
-                }
-            });
-        });
 
         function voteYes() {
             const controls = document.getElementById('pollControls');
