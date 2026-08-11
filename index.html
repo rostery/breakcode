@@ -373,7 +373,7 @@
                     </div>
                 </div>
 
-                <!-- KAFELEK 2: ANKIETA (ZA KAŻDYM RAZEM KLIKNIĘCIE NIE = GLITCH) -->
+                <!-- KAFELEK 2: ANKIETA (NIE = GLITCH) -->
                 <div class="dash-card" id="pollCard">
                     <div>
                         <span class="card-tag">📊 ANKIETA SYSTEMOWA // SYSTEM_CHECK</span>
@@ -418,7 +418,7 @@
         const SECRET_CODE = "404";
         let attemptsLeft = 3;
 
-        /* OBSŁUGA ŁAMACZA SZYFRÓW */
+        /* OBSŁUGA ŁAMACZA SZYFRÓW (KOD 404 I 3 PRÓBY) */
         function checkCode() {
             const d1 = document.getElementById('digit1').value;
             const d2 = document.getElementById('digit2').value;
@@ -443,7 +443,7 @@
             }
         }
 
-        /* EKRAN AWARII / INFEKCJI - URUCHAMIANY ZAWSZE PO KLIKNIĘCIU NIE */
+        /* EKRAN AWARII / INFEKCJI */
         function triggerInfection() {
             const overlay = document.getElementById('infectionOverlay');
             const countdownEl = document.getElementById('lockCountdown');
@@ -472,7 +472,7 @@
                 const status = document.getElementById('gameResult');
                 if (status) {
                     status.style.color = "var(--text-muted)";
-                    status.innerHTML = "SYSTEM ZRESTARTOWANY. POZOSTAŁE PRÓBY: 3";
+                    status.innerHTML = "POZOSTAŁE PRÓBY: 3";
                 }
                 document.getElementById('digit1').value = '';
                 document.getElementById('digit2').value = '';
