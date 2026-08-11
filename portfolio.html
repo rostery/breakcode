@@ -17,7 +17,6 @@
             margin: 0 auto;
         }
 
-        /* Siatka kafelków portfolio */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -25,7 +24,6 @@
             margin-top: 20px;
         }
 
-        /* Pojedynczy kafel projektu */
         .portfolio-card {
             background: var(--card-bg, rgba(18, 21, 38, 0.85));
             border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
@@ -42,7 +40,6 @@
             border-color: var(--accent-moon, #38bdf8);
         }
 
-        /* Obrazek w kafelku */
         .portfolio-image {
             width: 100%;
             height: 160px;
@@ -50,7 +47,6 @@
             border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
         }
 
-        /* Treść w kafelku */
         .portfolio-content {
             padding: 20px;
             display: flex;
@@ -97,31 +93,20 @@
         </header>
 
         <main class="portfolio-main">
-            <!-- Tutaj wstawiasz swoją dotychczasową logikę hasła / zawartość zabezpieczoną -->
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
                 <h1 style="color: #fff; font-family: var(--font-heading); margin: 0;">Twoje Projekty & Portfolio</h1>
-                <!-- Przycisk blokowania, jeśli go używasz -->
                 <button id="lockBtn" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem;">Zablokuj ponownie</button>
             </div>
 
-            <!-- MIEJSCE NA KAFELKI PROJEKTÓW -->
+            <!-- KAFELKI PROJEKTÓW -->
             <div class="portfolio-grid">
                 
-                <!-- KAFELEK 1: Twój pierwszy projekt -->
+                <!-- KAFELEK PROJEKTU 1 (Prowadzi do projekt-1.html) -->
                 <a href="projekt-1.html" class="portfolio-card">
                     <img src="zdjecie-projektu-1.jpg" alt="Projekt 1" class="portfolio-image" onerror="this.src='https://via.placeholder.com/400x160?text=Brak+zdjęcia'">
                     <div class="portfolio-content">
-                        <h3 class="portfolio-title">Nazwa Pierwszego Projektu</h3>
-                        <p class="portfolio-desc">Krótki opis tego, co zrobiono w projekcie, użyte technologie itp.</p>
-                    </div>
-                </a>
-
-                <!-- KAFELEK 2: Kolejny projekt (możesz powielać ten blok dla nowych wpisów) -->
-                <a href="projekt-2.html" class="portfolio-card">
-                    <img src="zdjecie-projektu-2.jpg" alt="Projekt 2" class="portfolio-image" onerror="this.src='https://via.placeholder.com/400x160?text=Brak+zdjęcia'">
-                    <div class="portfolio-content">
-                        <h3 class="portfolio-title">Nazwa Drugiego Projektu</h3>
-                        <p class="portfolio-desc">Krótki opis drugiego projektu...</p>
+                        <h3 class="portfolio-title">Mój Pierwszy Projekt</h3>
+                        <p class="portfolio-desc">Kliknij, aby otworzyć pełną niezależną podstronę tego projektu.</p>
                     </div>
                 </a>
 
