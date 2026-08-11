@@ -3,54 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">Ładowanie... // breakcode</title>
+    <title>Wpis na blogu // breakcode</title>
     <link rel="icon" type="image/png" href="ksiezyc.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        .post-container { max-width: 780px; margin: 0 auto; padding: 10px 0 60px 0; }
-        .back-link { display: inline-block; margin-bottom: 25px; color: var(--text-muted, #94a3b8); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
-        .back-link:hover { color: var(--accent-moon, #38bdf8); }
+        .system-bar {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            background: rgba(8, 9, 17, 0.8);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            padding: 10px 18px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted, #94a3b8);
+        }
 
-        .post-meta { color: var(--accent-moon, #38bdf8); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 10px; }
-        .post-title { font-size: 2.3rem; color: #ffffff; line-height: 1.25; margin-bottom: 15px; font-family: var(--font-heading); }
-        .post-date { color: var(--text-muted, #94a3b8); font-size: 0.85rem; margin-bottom: 30px; border-bottom: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-bottom: 15px; font-family: monospace; }
-        
-        .update-stamp { color: #fbbf24; font-weight: 600; margin-left: 10px; padding-left: 10px; border-left: 1px solid rgba(251, 191, 36, 0.4); }
-
-        .featured-image-container { margin: 25px 0 35px 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); background-color: var(--card-bg, #121526); }
-        .featured-image-container img { width: 100%; height: auto; display: block; object-fit: cover; }
-        
-        .audio-player-box { background: rgba(56, 189, 248, 0.08); border: 1px solid var(--accent-moon, #38bdf8); padding: 20px; border-radius: 8px; margin: 30px 0; }
-        .audio-player-box audio { width: 100%; margin-top: 8px; }
-
-        .post-content { font-size: 1.05rem; line-height: 1.85; color: var(--text-main, #f8fafc); }
-        .post-content p { margin-bottom: 22px; }
-        .post-content img { max-width: 100%; border-radius: 8px; margin: 20px 0; }
-        .post-content h2 { color: #ffffff; font-size: 1.5rem; margin: 40px 0 15px 0; border-left: 3px solid var(--accent-moon, #38bdf8); padding-left: 12px; }
-        .post-content ul, .post-content ol { margin-bottom: 22px; padding-left: 20px; color: var(--text-muted, #94a3b8); }
-        .post-content li { margin-bottom: 8px; }
+        /* Styl czystego wpisu */
+        .post-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: var(--card-bg, rgba(18, 21, 38, 0.85));
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            padding: 40px;
+        }
+        .post-header {
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            padding-bottom: 20px;
+        }
+        .post-title {
+            font-size: 2.3rem;
+            color: #fff;
+            font-family: var(--font-heading);
+            margin: 10px 0;
+        }
+        .post-meta {
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--accent-moon, #38bdf8);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .post-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+        }
+        .post-content {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-muted, #94a3b8);
+        }
+        .post-content p {
+            margin-bottom: 20px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: var(--accent-moon, #38bdf8);
+            text-decoration: none;
+            font-family: monospace;
+            font-weight: 700;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
-    <div class="fog-container"><div class="fog-layer"></div><div class="fog-layer-2"></div></div>
-
     <div class="container" style="position: relative; z-index: 1;">
-        <!-- PEŁNA NAWIGACJA -->
-        <header>
+        
+        <!-- NAGŁÓWEK Z LOGO I NAWIGACJĄ -->
+        <header style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
             <a href="index.html" style="text-decoration: none; color: inherit;">
                 <div class="logo" style="display: flex; align-items: center; gap: 10px;">
-                    <img src="ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <img src="ksiezyc.png" id="moonLogo" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
                     <div>breakcode</div>
                 </div>
             </a>
-            <nav>
+            <nav id="mainNav">
                 <a href="index.html">✦ Strona główna</a>
-                <a href="blog.html">✦ Blog</a>
+                <a href="blog.html" style="color: var(--accent-moon);">✦ Blog</a>
                 <a href="masz-pomysl.html">✦ Masz pomysł?</a>
                 <a href="laboratorium.html">✦ Laboratorium</a>
                 <a href="o-mnie.html">✦ O mnie</a>
@@ -61,198 +106,82 @@
         </header>
 
         <!-- GLOBALNY PASEK CZASU SYSTEMOWEGO -->
-        <div class="system-bar" style="display: flex; gap: 20px; flex-wrap: wrap; background: rgba(8, 9, 17, 0.8); border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1)); padding: 10px 18px; border-radius: 8px; margin-bottom: 25px; font-family: monospace; font-size: 0.85rem; color: var(--text-muted, #94a3b8);">
-            <div style="display: flex; align-items: center; gap: 8px;">CZAS SESJI: <span id="globalSessionTimer" style="color: var(--accent-moon, #38bdf8); font-weight: 700;">00:00</span></div>
-            <div style="display: flex; align-items: center; gap: 8px;">GODZINA: <span id="globalClockTime" style="color: var(--accent-moon, #38bdf8); font-weight: 700;">00:00:00</span></div>
-            <div style="display: flex; align-items: center; gap: 8px;">STATUS: <span style="color: #4ade80; font-weight: 700;">● SYSTEM AKTYWNY</span></div>
+        <div class="system-bar">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                CZAS SESJI: <span id="globalSessionTimer" style="color: var(--accent-moon, #38bdf8); font-weight: 700;">00:00</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                GODZINA: <span id="globalClockTime" style="color: var(--accent-moon, #38bdf8); font-weight: 700;">00:00:00</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                STATUS: <span style="color: #4ade80; font-weight: 700;">● SYSTEM AKTYWNY</span>
+            </div>
         </div>
 
-        <main class="post-container">
-            <a href="javascript:history.back()" class="back-link">← Powrót do poprzedniej strony</a>
+        <!-- TREŚĆ WPISU -->
+        <main>
+            <div style="padding-top: 10px; margin-bottom: 20px;">
+                <a href="blog.html" class="back-link">← Powrót do Bloga</a>
+            </div>
 
-            <article id="articleContent">
-                <!-- Treść ładuje się automatycznie -->
+            <article class="post-container">
+                <div class="post-header">
+                    <span class="post-meta">KATEGORIA // DATA PUBLIKACJI</span>
+                    <h1 class="post-title">Tytuł Twojego Wpisu</h1>
+                </div>
+
+                <!-- Opcjonalne zdjęcie wewnątrz wpisu -->
+                <img src="zdjecie-wpisu.jpg" alt="Grafika wpisu" class="post-image" onerror="this.style.display='none'">
+
+                <div class="post-content">
+                    <p>Tutaj znajduje się czysta treść Twojego artykułu. Pisz swobodnie kolejne akapity, opisywane eksperymenty lub przemyślenia.</p>
+                    <p>Kolejny akapit tekstu w czystym, czytelnym formancie dopasowanym do reszty Twojego serwisu.</p>
+                </div>
+
+                <a href="blog.html" class="back-link">← Wróć do listy wpisów</a>
             </article>
         </main>
 
-        <footer style="margin-top: 60px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-top: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-                <div style="font-size: 0.85rem; color: var(--text-muted);">© Katarzyna Cherek // breakcode. Wszelkie prawa zastrzeżone.</div>
-                <div class="social-links">
-                    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-                    <a href="https://facebook.com" target="_blank">Facebook</a>
+        <!-- STOPKA -->
+        <footer style="margin-top: 60px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding: 25px 0; text-align: center;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; font-family: monospace; font-size: 0.85rem;">
+                <div style="color: var(--text-muted);">
+                    © breakcode // Wszelkie prawa zastrzeżone.
+                </div>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+                    <a href="polityka.html" style="color: var(--accent-moon); text-decoration: none;">Regulamin i Polityka Prywatności</a>
+                    <span style="color: var(--text-muted);">|</span>
+                    <span style="color: #4ade80;">● ANONYMOUS_NODE</span>
                 </div>
             </div>
         </footer>
     </div>
 
-    <!-- SKRYPT WCZYTUJĄCY TREŚĆ -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const itemId = urlParams.get('id');
-
-            let allData = JSON.parse(localStorage.getItem('breakcode_master_data')) || [];
-            const currentItem = allData.find(item => item.id === itemId);
-
-            const articleBox = document.getElementById('articleContent');
-            if (!articleBox) return;
-
-            if (!currentItem) {
-                articleBox.innerHTML = `
-                    <div style="text-align: center; padding: 40px 0;">
-                        <h1 style="color:#fff; font-size: 1.8rem;">[404] Nie odnaleziono wpisu</h1>
-                        <p style="color: var(--text-muted);">Szukany element nie istnieje w bazie danych lub został usunięty.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            document.getElementById('pageTitle').innerText = `${currentItem.title} // breakcode`;
-
-            let audioHTML = '';
-            if (currentItem.audioUrl) {
-                audioHTML = `
-                    <div class="audio-player-box">
-                        <span style="color: var(--accent-moon); font-weight: 600; font-size: 0.85rem; display: block;">🎧 ZAPIS DŹWIĘKOWY:</span>
-                        <audio controls>
-                            <source src="${currentItem.audioUrl}" type="audio/mpeg">
-                            Twoja przeglądarka nie obsługuje odtwarzacza audio.
-                        </audio>
-                    </div>
-                `;
-            }
-
-            // Jeśli wpis posiada znacznik edycji (updatedAt), wyświetlamy go
-            const updateMarkup = currentItem.updatedAt ? `<span class="update-stamp">[ZAKTUALIZOWANO: ${currentItem.updatedAt}]</span>` : '';
-
-            // Konstruowanie pełnej struktury posta
-            articleBox.innerHTML = `
-                <header>
-                    <div class="post-meta">[${currentItem.target.toUpperCase()}] ${currentItem.category}</div>
-                    <h1 class="post-title">${currentItem.title}</h1>
-                    <div class="post-date">
-                        DATA PUBLIKACJI: ${currentItem.date} 
-                        ${updateMarkup}
-                    </div>
-                </header>
-
-                ${currentItem.image ? `<div class="featured-image-container"><img src="${currentItem.image}" alt="${currentItem.title}"></div>` : ''}
-                ${audioHTML}
-
-                <div class="post-content">
-                    ${currentItem.content || currentItem.excerpt}
-                </div>
-            `;
-        });
-    </script>
-
     <!-- GLOBALNY SKRYPT LICZNIKA CZASU SESJI -->
     <script>
         (function() {
             let secondsSpent = parseInt(sessionStorage.getItem('breakcode_session_time')) || 0;
+
             function updateClockAndTimer() {
                 secondsSpent++;
                 sessionStorage.setItem('breakcode_session_time', secondsSpent);
+
                 const mins = Math.floor(secondsSpent / 60).toString().padStart(2, '0');
                 const secs = (secondsSpent % 60).toString().padStart(2, '0');
+
                 const timerEl = document.getElementById('globalSessionTimer');
                 const clockEl = document.getElementById('globalClockTime');
+
                 if (timerEl) timerEl.innerText = `${mins}:${secs}`;
                 if (clockEl) {
                     const now = new Date();
                     clockEl.innerText = now.toLocaleTimeString('pl-PL');
                 }
             }
+
             updateClockAndTimer();
             setInterval(updateClockAndTimer, 1000);
         })();
     </script>
-	<!-- SEKCJA KOMENTARZY LOKALNYCH -->
-<section style="margin-top: 50px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-top: 30px;">
-    <h3 style="color: #fff; font-family: var(--font-heading); margin-bottom: 20px;">✦ TRANSMISJE ZWROTNE (KOMENTARZE)</h3>
-    
-    <!-- FORMULARZ DODAWANIA KOMENTARZA -->
-    <form id="commentForm" onsubmit="addComment(event)" style="background: var(--card-bg, #121526); border: 1px solid var(--border-color, rgba(255,255,255,0.1)); border-radius: 10px; padding: 20px; margin-bottom: 30px;">
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; font-family: monospace; font-size: 0.8rem; color: var(--accent-moon, #38bdf8); margin-bottom: 5px;">PSEUDONIM / KOD IDENTYFIKACYJNY:</label>
-            <input type="text" id="commentAuthor" required placeholder="np. Anonymous / Rekruter" style="width: 100%; padding: 10px; background: #080911; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); color: #fff; border-radius: 6px; font-family: monospace; box-sizing: border-box;">
-        </div>
-        <div style="margin-bottom: 15px;">
-            <label style="display: block; font-family: monospace; font-size: 0.8rem; color: var(--accent-moon, #38bdf8); margin-bottom: 5px;">TREŚĆ WIADOMOŚCI:</label>
-            <textarea id="commentText" required rows="3" placeholder="Napisz swoją opinię..." style="width: 100%; padding: 10px; background: #080911; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); color: #fff; border-radius: 6px; font-family: sans-serif; box-sizing: border-box; resize: vertical;"></textarea>
-        </div>
-        <button type="submit" style="background: var(--accent-moon, #38bdf8); color: #000; border: none; padding: 10px 20px; font-weight: 700; border-radius: 6px; cursor: pointer; font-family: monospace;">Wyślij transmisję →</button>
-    </form>
-
-    <!-- LISTA KOMENTARZY -->
-    <div id="commentsList" style="display: flex; flexDirection: column; gap: 15px;">
-        <!-- Tutaj dynamicznie wskoczą komentarze -->
-    </div>
-</section>
-
-<!-- SKRYPT OBSŁUGUJĄCY KOMENTARZE -->
-<script>
-    // Pobieramy unikalne ID wpisu z adresu URL (np. wpis.html?id=123)
-    const urlParams = new URLSearchParams(window.location.search);
-    const postId = urlParams.get('id') || 'default_post';
-
-    document.addEventListener('DOMContentLoaded', function() {
-        loadComments();
-    });
-
-    function addComment(e) {
-        e.preventDefault();
-        const author = document.getElementById('commentAuthor').value.trim();
-        const text = document.getElementById('commentText').value.trim();
-
-        if(!author || !text) return;
-
-        const newComment = {
-            id: Date.now(),
-            author: author.slice(0, 20),
-            text: text,
-            date: new Date().toLocaleDateString('pl-PL') + ' ' + new Date().toLocaleTimeString('pl-PL', {hour: '2-digit', minute:'2-digit'})
-        };
-
-        // Pobieramy dotychczasowe komentarze dla tego konkretnego wpisu
-        let comments = JSON.parse(localStorage.getItem('breakcode_comments_' + postId)) || [];
-        comments.unshift(newComment); // Dodaj na sam początek
-
-        localStorage.setItem('breakcode_comments_' + postId, JSON.stringify(comments));
-
-        // Reset formularza i odświeżenie listy
-        document.getElementById('commentForm').reset();
-        loadComments();
-    }
-
-    function loadComments() {
-        const listEl = document.getElementById('commentsList');
-        let comments = JSON.parse(localStorage.getItem('breakcode_comments_' + postId)) || [];
-
-        if (comments.length === 0) {
-            listEl.innerHTML = '<p style="color: var(--text-muted); font-family: monospace; font-size: 0.85rem; text-align: center; padding: 10px;">Brak transmisji zwrotnych. Bądź pierwszy, który skomentuje ten wpis.</p>';
-            return;
-        }
-
-        listEl.innerHTML = '';
-        comments.forEach(c => {
-            listEl.innerHTML += `
-                <div style="background: rgba(18, 21, 38, 0.6); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 15px; font-family: monospace;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.8rem;">
-                        <span style="color: #4ade80; font-weight: 700;">✦ ${escapeHtml(c.author)}</span>
-                        <span style="color: var(--text-muted);">${c.date}</span>
-                    </div>
-                    <p style="color: #fff; font-size: 0.9rem; margin: 0; font-family: sans-serif; line-height: 1.5; word-break: break-word;">${escapeHtml(c.text)}</p>
-                </div>
-            `;
-        });
-    }
-
-    // Bezpieczne zabezpieczenie przed wstrzykiwaniem kodu HTML przez użytkowników
-    function escapeHtml(text) {
-        return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
-    }
-</script>
 </body>
 </html>
