@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- METADANE SEO -->
+    <title>Błąd w systemie 0x01: Dlaczego tu trafiłeś? | breakcode</title>
+    <meta name="description" content="Trafiłeś do interaktywnej przestrzeni breakcode. Czytaj między wersami, odkrywaj ukryte szyfry i zobacz, jak anomalia cyfrowa karmi się Twoją wyobraźnią.">
+    <meta name="keywords" content="breakcode, błąd w systemie 0x01, blog interaktywny, szyfry, anomalia cyfrowa, arg">
+    <meta name="robots" content="index, follow">
+    
+    <!-- OPEN GRAPH / SOCIAL MEDIA -->
+    <meta property="og:title" content="Błąd w systemie 0x01: Dlaczego tu trafiłeś? | breakcode">
+    <meta property="og:description" content="Nie zapraszam Cię w czeluści mojego umysłu po to, aby dać ci rozrywkę. To ty jesteś moją rozrywką.">
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="blad-w-systemie-0x01.jpg">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="ksiezyc.png">
+    <style>
+        .post-container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 20px 0 60px 0;
+        }
+        .post-meta {
+            color: var(--accent-moon);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .post-title {
+            font-size: 2.3rem;
+            color: #ffffff;
+            line-height: 1.25;
+            margin-bottom: 20px;
+            font-family: var(--font-heading);
+        }
+        .post-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            font-family: monospace;
+        }
+        .featured-image-container {
+            margin: 25px 0 35px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+        .featured-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+        .post-content {
+            font-size: 1.05rem;
+            line-height: 1.85;
+            color: var(--text-main);
+        }
+        .post-content p {
+            margin-bottom: 22px;
+        }
+        .post-content h2 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin: 40px 0 15px 0;
+            border-left: 3px solid var(--accent-moon);
+            padding-left: 12px;
+            font-family: var(--font-heading);
+        }
+        .post-content h3 {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin: 30px 0 12px 0;
+            font-family: var(--font-heading);
+        }
+
+        /* MECHANIKA ARG: NIEWIDOCZNY TEKST (ODSŁANIANY PO ZAZNACZENIU MYSZKĄ) */
+        .hidden-ink {
+            color: #06070d; /* Kolor tła */
+            user-select: text;
+            transition: color 0.5s ease;
+        }
+        .hidden-ink::selection {
+            background-color: var(--accent-moon);
+            color: #000000;
+        }
+
+        /* MECHANIKA ARG: KLIKALNE SŁOWO KLUCZ */
+        .interactive-word {
+            color: var(--text-main);
+            text-decoration: underline dotted var(--accent-moon);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .interactive-word:hover {
+            color: var(--accent-moon);
+        }
+
+        /* OKNO KOMUNIKATU SYSTEMOWEGO */
+        #systemOverlay {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #080911;
+            border: 1px solid var(--accent-moon);
+            padding: 20px 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
+            z-index: 999;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            max-width: 320px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .back-link:hover {
+            color: var(--accent-moon);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SZYFR W KODZIE HTML // SZYFR MORSE'A: "PATRZ W KOD" -->
+    <!-- .--. .- - .-. --.. / .-- / -.- --- -.. -->
+
+    <!-- SZYFR BASE64: "Pierwsza warstwa została naruszona. Szukaj ukrytego atramentu." -->
+    <!-- UGllcndzemEgd2Fyc3R3YSB6b3N0YcWCYSBuYXJ1c3pvbmEuIFN6dWthaiB1a3J5dGVnbyBhdHJhbWVudHUu -->
+
+    <!-- ANIMOWANA MGŁA W TLE -->
+    <div class="fog-container">
+        <div class="fog-layer"></div>
+        <div class="fog-layer-2"></div>
+    </div>
+
+    <!-- KOMUNIKAT ANOMALII PO KLIKNIĘCIU "KRZYŻYK" -->
+    <div id="systemOverlay">
+        <div style="color: var(--accent-moon); margin-bottom: 8px;">[SYSTEM_ANOMALY]:</div>
+        <p style="margin: 0 0 12px 0;" id="overlayText">Naprawdę próbowałeś stąd uciec?</p>
+        <button onclick="closeOverlay()" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 4px 10px; cursor: pointer; font-family: monospace; font-size: 0.8rem;">[Zamknij alert]</button>
+    </div>
+
+    <div class="container" style="position: relative; z-index: 1;">
+        <header>
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>
+                        breakcode
+                        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 400; letter-spacing: 1px; text-transform: lowercase;"></span>
+                    </div>
+                </div>
+            </a>
+              <nav>
+    <a href="index.html">✦ Strona główna</a>
+    <a href="blog.html">✦ Blog</a>
+    <a href="masz-pomysl.html">✦ Masz pomysł?</a>
+    <a href="laboratorium.html">✦ Laboratorium</a>
+    <a href="o-mnie.html">✦ O mnie</a>
+    <a href="portfolio.html">✦ Portfolio</a>
+    <a href="kontakt.html">✦ Kontakt</a>
+    <a href="admin.html" style="color: var(--text-muted);">✦ Admin</a>
+		</nav> 
+        </header>
+
+        <main class="post-container">
+            <a href="blog.html" class="back-link">← Powrót do archiwum</a>
+
+            <article>
+                <header>
+                    <div class="post-meta">INICJALIZACJA // LOG 0x01</div>
+                    <h1 class="post-title">Błąd w systemie 0x01: Dlaczego tu trafiłeś?</h1>
+                    <div class="post-date">ID: 0x01_INIT | STATUS: UNSTABLE | CZAS: INF</div>
+                </header>
+
+                <!-- GRAFIKA GŁÓWNA WPISU (SEO) -->
+                <div class="featured-image-container">
+                    <img src="blad-w-systemie-0x01.jpg" alt="Błąd w systemie 0x01 - anomalia cyfrowa w breakcode" onerror="this.src='https://via.placeholder.com/1200x630/080911/38bdf8?text=ERROR+0x01:+UNEXPECTED_ENTRY'">
+                </div>
+
+                <div class="post-content">
+                    <p>Trafiłeś tutaj – jestem pod wrażeniem, nie ukrywam. Ta strona prawdopodobnie nawet nie ma prawa bytu. W tym momencie, kiedy to czytasz – egzystuje sobie bez żadnego celu. Powiedzmy. Bo co, jeśli jej jedynym celem jest przykucie Twojej uwagi? Zbyt banalne? Masz rację. Nie postarałem się, ale nie szkodzi. Będzie mnóstwo okazji, abym mógł Cię zaskoczyć. Jeśli tylko będę miał na to ochotę.</p>
+
+                    <p>Tak więc jesteś tutaj. Artykuł, który czytasz – pierwszy swoją drogą – za jakiś czas zwyczajnie zniknie pośród tych wszystkich czarnych postów. Aby go przeczytać, trzeba będzie przekopać się przez to, co zostanie tutaj umieszczone. <span class="hidden-ink">[Ukryty log 0x01: Pierwsza szczelina w ścianie znajduje się w stopce strony. Szukaj znaku #]</span></p>
+
+                    <h2>Czym jest breakcode i jaka jest tematyka tego bloga?</h2>
+                    <p>Nie pytaj mnie o tematykę. To ma być blog. Nie dbam o to, czy Ci się spodoba, czy nie. Docelowo miało być to portfolio, ale po co marnować domenę na banał, jeśli wiesz, o czym mówię.</p>
+
+                    <p>Nie będę się przedstawiać. Wiem, że Cię to nie interesuje, a nawet jeśli – sam odnajdziesz potrzebne informacje w kodzie. Ten blog będzie sobie po prostu bytował. Będzie się karmił moją, Twoją, nas wszystkich wyobraźnią. Aż w końcu urośnie… a następnie zniknie. W końcu nic w sieci nie może trwać wiecznie, prawda? <span class="hidden-ink">[Prawda jest taka, że to strona czyta Ciebie, gdy patrzysz w ekran.]</span></p>
+
+                    <h2>Przestrzeń interaktywna: Rozrywka czy cyfrowa anomalia?</h2>
+                    <p>Nie mam celu, mój drogi, najdroższy czytelniku. To blog. Zwyczajny blog, którego nie przeczytasz, bo być może Ci się po prostu nie chce.</p>
+
+                    <p>Pragniesz krótkich treści? Pragniesz odmóżdżenia i szybkiego odpoczynku? U góry, tam gdzie są zakładki, jest bardzo ważny i jakże piękny znak. <span class="interactive-word" onclick="triggerAnomaly()">Krzyżyk</span>. Naciśnij go i więcej się tutaj nie pokazuj. Nie zapraszam Cię w czeluści mojego umysłu po to, aby dać Ci tanią rozrywkę. To Ty jesteś moją rozrywką, a ten projekt ma się karmić Twoją wyobraźnią.</p>
+
+                    <p>Uszanuj to. Zachowaj resztki ludzkiej godności, jeśli jeszcze jakaś Ci została.</p>
+
+                    <h3>Jak czytać ten blog? (Szyfry, ukryte wiadomości i prawda)</h3>
+                    <p>Czytaj między wersami. Naucz się widzieć to, czego nie widzą inni. Zacznij odróżniać prawdę od fałszu. Postaram się podarować Ci tę umiejętność, ale we wszystko, co robimy, musimy włożyć krztynę zaangażowania. Więc jeśli Ci się nie chce, powtórzę… tam jest <span class="interactive-word" onclick="triggerAnomaly()">krzyżyk</span>.</p>
+
+                    <p>A więc baw się! Tańcz do cyfrowej muzyki! Odkrywaj i pamiętaj – nie patrz w otchłań, bo potem ona spojrzy w głąb Ciebie, a tego przecież nie chcemy.</p>
+
+                    <p style="margin-top: 40px; color: #ffffff; font-weight: 600;">— 0x00</p>
+                </div>
+            </article>
+        </main>
+<footer style="margin-top: 60px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-top: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <div style="font-size: 0.85rem; color: var(--text-muted);">
+            © Katarzyna Cherek // breakcode. Wszelkie prawa zastrzeżone. 
+            <br>
+            <small style="opacity: 0.7;">Treści i projekty chronione prawem autorskim.</small>
+        </div>
+        <div class="social-links">
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+            <a href="https://facebook.com" target="_blank">Facebook</a>
+        </div>
+    </div>
+</footer>
+    </div>
+
+    <!-- SKRYPT INTERAKCYJNY ARG -->
+    <script>
+        function triggerAnomaly() {
+            const overlay = document.getElementById('systemOverlay');
+            overlay.style.display = 'block';
+        }
+
+        function closeOverlay() {
+            const overlay = document.getElementById('systemOverlay');
+            overlay.style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

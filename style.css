@@ -1,0 +1,281 @@
+
+/*
+Theme Name: Mroczne Portfolio
+Author: Katarzyna Cherek
+Description: Dedykowany, mroczny motyw z kafelkowym układem dla portfolio i bloga.
+Version: 1.0
+*/
+:root {
+    --bg-color: #0b0d12;
+    --card-bg: #131722;
+    --border-color: #2a3142;
+    --text-main: #e2e8f0;
+    --text-muted: #94a3b8;
+    --accent-moon: #82aaff;
+    --accent-glow: rgba(130, 170, 255, 0.15);
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    padding: 0 20px;
+}
+
+/* Kontener główny */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+/* Wyrównanie i spójny wygląd menu */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--accent-moon);
+    text-transform: uppercase;
+}
+
+.logo span {
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-weight: 300;
+    display: block;
+}
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+}
+
+/* Wymuszenie jednakowej czcionki, rozmiaru i koloru dla WSZYSTKICH linków */
+nav a, 
+nav a:visited, 
+nav a:active, 
+nav a:link {
+    color: var(--text-main) !important; /* Ten sam jasny kolor co reszta tekstu */
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+/* Efekt najechania myszką */
+nav a:hover {
+    color: var(--accent-moon) !important;
+}
+
+/* Sekcja wprowadzająca */
+.hero {
+    margin-bottom: 50px;
+    max-width: 700px;
+}
+
+.hero h1 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.hero p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Siatka Kafelków */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    color: var(--accent-moon);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+/* Kafelki wpisów */
+.card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-moon);
+    box-shadow: 0 10px 20px var(--accent-glow);
+}
+
+.card-image {
+    width: 100%;
+    height: 180px;
+    background-color: #1a202c;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-date {
+    font-size: 0.75rem;
+    color: var(--accent-moon);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.card-excerpt {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    flex-grow: 1;
+    margin-bottom: 15px;
+}
+
+.card-link {
+    color: var(--accent-moon);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Sekcja Kontaktowa */
+.contact-section {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 40px;
+    margin-bottom: 60px;
+}
+
+.contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.contact-form .full-width {
+    grid-column: span 2;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-main);
+    font-family: var(--font-body);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-moon);
+}
+
+button.btn-submit {
+    background-color: var(--accent-moon);
+    color: var(--bg-color);
+    border: none;
+    padding: 12px 25px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+button.btn-submit:hover {
+    opacity: 0.9;
+}
+
+/* Stopka i Social Media */
+footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.social-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-left: 15px;
+    transition: color 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--accent-moon);
+}
+
+@media (max-width: 768px) {
+    .contact-form {
+        grid-template-columns: 1fr;
+    }
+    .contact-form .full-width {
+        grid-column: span 1;
+    }
+}

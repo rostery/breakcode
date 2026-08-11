@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>breakcode // Terminal Główny</title>
+    <link rel="icon" type="image/png" href="ksiezyc.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .hero-main {
+            padding: 30px 0 10px 0;
+            max-width: 800px;
+        }
+
+        .system-bar {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            background: rgba(8, 9, 17, 0.8);
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            padding: 10px 18px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted, #94a3b8);
+        }
+
+        .hero-title {
+            font-size: 2.6rem;
+            line-height: 1.2;
+            color: #ffffff;
+            font-family: var(--font-heading);
+            margin-bottom: 15px;
+        }
+
+        .hero-description {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: var(--text-muted, #94a3b8);
+            margin-bottom: 30px;
+        }
+
+        .recent-box {
+            background: var(--card-bg, rgba(18, 21, 38, 0.85));
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            padding: 22px 25px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 850px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
+
+        .dash-card {
+            background: var(--card-bg, rgba(18, 21, 38, 0.85));
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .card-tag {
+            color: var(--accent-moon, #38bdf8);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-title {
+            color: #fff;
+            font-size: 1.3rem;
+            margin: 0 0 10px 0;
+            font-family: var(--font-heading);
+        }
+
+        /* MINI GRA: ŁAMACZ SZYFRÓW */
+        .code-display {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .code-input {
+            width: 50px;
+            height: 60px;
+            background: #080911;
+            border: 2px solid var(--border-color, rgba(255, 255, 255, 0.2));
+            border-radius: 8px;
+            color: var(--accent-moon, #38bdf8);
+            font-size: 1.6rem;
+            font-weight: 700;
+            text-align: center;
+            outline: none;
+            font-family: monospace;
+            transition: border-color 0.3s;
+        }
+
+        .code-input:focus { border-color: var(--accent-moon, #38bdf8); }
+
+        .btn-action-game {
+            width: 100%;
+            background: var(--accent-moon, #38bdf8);
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-action-game:hover { opacity: 0.9; }
+
+        .game-status {
+            text-align: center;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            min-height: 20px;
+            font-family: monospace;
+        }
+
+        .discord-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background: #5865F2;
+            color: #fff;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 10px;
+            box-sizing: border-box;
+            transition: opacity 0.2s;
+        }
+
+        .discord-btn:hover { opacity: 0.9; }
+
+        /* STYLIZACJA KAFELKA ANKIETY (50/50) */
+        .poll-buttons-container {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            margin-top: 15px;
+            position: relative;
+            min-height: 50px;
+        }
+
+        .poll-btn-yes {
+            flex: 1;
+            background: #4ade80;
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .poll-btn-no {
+            flex: 1;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: top 0.15s ease, left 0.15s ease, background 0.2s, color 0.2s;
+            z-index: 20;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* EKRAN AWARII Z MIGAJĄCYM EFEKTEM */
+        #infectionOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #060810;
+            z-index: 999999;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ef4444;
+            font-family: monospace;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        #infectionOverlay::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.05));
+            z-index: 2;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        .glitch-screen-flicker {
+            animation: crashGlitch 0.12s infinite;
+        }
+
+        @keyframes crashGlitch {
+            0% { opacity: 0.98; transform: translate(0); }
+            20% { opacity: 0.92; transform: translate(-2px, 1px); }
+            40% { opacity: 1; transform: translate(2px, -1px); }
+            60% { opacity: 0.89; transform: translate(-1px, -2px); }
+            80% { opacity: 0.96; transform: translate(1px, 2px); }
+            100% { opacity: 1; transform: translate(0); }
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid rgba(239, 68, 68, 0.2);
+            border-top: 4px solid #ef4444;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-top: 30px;
+            z-index: 3;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-code {
+            font-size: 1.4rem;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            z-index: 3;
+            text-shadow: 2px 0 #ef4444, -2px 0 #00ffff;
+        }
+
+        .error-sub {
+            color: var(--text-muted, #94a3b8);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            z-index: 3;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- EKRAN AWARII Z NAPISEM PO ANGIELSKU -->
+    <div id="infectionOverlay" class="glitch-screen-flicker">
+        <div class="error-code">⚠️ You shouldn't have done that</div>
+        <div class="error-sub">System security breach detected. Session memory has been temporarily locked.</div>
+        
+        <div class="spinner"></div>
+        
+        <div style="color: #ef4444; font-size: 0.75rem; margin-top: 20px; z-index: 3; letter-spacing: 1px;">
+            STATUS: LOCK_ENGAGED // RESTARTING SYSTEM...
+        </div>
+    </div>
+
+    <div class="container" style="position: relative; z-index: 1;">
+        <!-- PEŁNA NAWIGACJA -->
+        <header>
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="ksiezyc.png" id="moonLogo" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>breakcode</div>
+                </div>
+            </a>
+            <nav id="mainNav">
+                <a href="index.html" style="color: var(--accent-moon);">✦ Strona główna</a>
+                <a href="blog.html">✦ Blog</a>
+                <a href="masz-pomysl.html">✦ Masz pomysł?</a>
+                <a href="laboratorium.html">✦ Laboratorium</a>
+                <a href="o-mnie.html">✦ O mnie</a>
+                <a href="portfolio.html">✦ Portfolio</a>
+                <a href="kontakt.html">✦ Kontakt</a>
+                <a href="admin.html">✦ Admin</a>
+            </nav>
+        </header>
+
+        <!-- GLOBALNY PASEK CZASU SYSTEMOWEGO -->
+        <div class="system-bar">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                CZAS SESJI: <span id="globalSessionTimer" style="color: var(--accent-moon, #38bdf8); font-weight: 700;">00:00</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                GODZINA: <span id="globalClockTime" style="color: var(--accent-moon, #38bdf8); font-weight: 700;">00:00:00</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                STATUS: <span style="color: #4ade80; font-weight: 700;">● SYSTEM AKTYWNY</span>
+            </div>
+        </div>
+
+        <main>
+            <!-- HERO -->
+            <section class="hero-main">
+                <h1 class="hero-title">Witaj w cyfrowej przestrzeni breakcode.</h1>
+                <p class="hero-description">
+                    Miejsce łączące słowo, eksperymenty w Laboratorium oraz cyfrowe archiwum. Przełam kod, aby uzyskać bezpośrednie przejście do społeczności.
+                </p>
+            </section>
+
+            <!-- SEKCJA OSTATNIEJ TRANSMISJI Z ADMINA -->
+            <div class="recent-box">
+                <span class="card-tag">⚡ OSTATNIA OPUBLIKOWANA TREŚĆ</span>
+                <div id="latestPostBox" style="margin-top: 10px; color: var(--text-muted);">
+                    Ładowanie treści z bazy danych...
+                </div>
+            </div>
+
+            <!-- KAFELKI INTERAKTYWNE -->
+            <div class="dashboard-grid">
+                
+                <!-- KAFELEK 1: MINI-GRA Z DISCORDEM -->
+                <div class="dash-card">
+                    <div>
+                        <span class="card-tag">🎮 ŁAMACZ SZYFRÓW // DISCORD</span>
+                        <h2 class="card-title">Złam 3-cyfrowy kod</h2>
+                        <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin: 0;">
+                            Wprowadź sekwencję cyfr, aby odblokować zaproszenie na Discorda. <i>(Uwaga: Masz 3 próby. Podpowiedź: Kod błędu braku zasobu)</i>.
+                        </p>
+
+                        <div class="code-display">
+                            <input type="text" maxlength="1" id="digit1" class="code-input" placeholder="0">
+                            <input type="text" maxlength="1" id="digit2" class="code-input" placeholder="0">
+                            <input type="text" maxlength="1" id="digit3" class="code-input" placeholder="0">
+                        </div>
+                    </div>
+
+                    <div>
+                        <button onclick="checkCode()" class="btn-action-game">Weryfikuj kod →</button>
+                        <div id="gameResult" class="game-status" style="color: var(--text-muted);">POZOSTAŁE PRÓBY: 3</div>
+                        <div id="discordReward" style="display: none;">
+                            <a href="https://discord.gg/TWOJ_LINK" target="_blank" class="discord-btn">
+                                👾 Dołącz do Discorda (Rozmawiaj ze stwórcą) →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KAFELEK 2: ANKIETA (50/50, ZATRZYMANIE CO 10S) -->
+                <div class="dash-card" id="pollCard">
+                    <div>
+                        <span class="card-tag">📊 ANKIETA SYSTEMOWA // SYSTEM_CHECK</span>
+                        <h2 class="card-title">Czy podoba Ci się blog?</h2>
+                        <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px;">
+                            Twoja opinia pomaga w optymalizacji sygnału. Wybierz jedną z opcji:
+                        </p>
+                    </div>
+
+                    <div id="pollControls" class="poll-buttons-container">
+                        <button onclick="voteYes()" class="poll-btn-yes">
+                            TAK ✦
+                        </button>
+
+                        <button id="btnNo" onmouseenter="moveNoButton()" onclick="clickNoButton()" class="poll-btn-no">
+                            NIE
+                        </button>
+                    </div>
+
+                    <div id="pollResult" style="display: none; text-align: center; margin-top: 15px; font-family: monospace; font-size: 0.9rem;"></div>
+                </div>
+
+            </div>
+        </main>
+
+        <footer style="margin-top: 60px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding: 25px 0; text-align: center;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; font-family: monospace; font-size: 0.85rem;">
+                <div style="color: var(--text-muted);">
+                    © breakcode // Wszelkie prawa zastrzeżone.
+                </div>
+                <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+                    <a href="polityka.html" style="color: var(--accent-moon); text-decoration: none;">Regulamin i Polityka Prywatności</a>
+                    <span style="color: var(--text-muted);">|</span>
+                    <span style="color: #4ade80;">● ANONYMOUS_NODE</span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SKRYPTY LOGIKI -->
+    <script>
+        const SECRET_CODE = "404";
+        let attemptsLeft = 3;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLockout();
+        });
+
+        /* OBSŁUGA ŁAMACZA SZYFRÓW */
+        function checkCode() {
+            if (sessionStorage.getItem('breakcode_locked') === 'true') {
+                triggerInfection();
+                return;
+            }
+
+            const d1 = document.getElementById('digit1').value;
+            const d2 = document.getElementById('digit2').value;
+            const d3 = document.getElementById('digit3').value;
+            const userAttempt = d1 + d2 + d3;
+
+            const status = document.getElementById('gameResult');
+            const discordBox = document.getElementById('discordReward');
+
+            if (userAttempt === SECRET_CODE) {
+                status.style.color = "#4ade80";
+                status.innerHTML = "🔓 KOD POPRAWNY! Przełamano błąd.";
+                discordBox.style.display = "block";
+            } else {
+                attemptsLeft--;
+                if (attemptsLeft > 0) {
+                    status.style.color = "#ef4444";
+                    status.innerHTML = `❌ BŁĄD. Pozostałe próby: ${attemptsLeft}`;
+                } else {
+                    sessionStorage.setItem('breakcode_locked', 'true');
+                    sessionStorage.setItem('breakcode_lock_until', Date.now() + 10000);
+                    triggerInfection();
+                }
+            }
+        }
+
+        /* EKRAN AWARII / INFEKCJI */
+        function triggerInfection() {
+            const overlay = document.getElementById('infectionOverlay');
+            overlay.style.display = 'flex';
+
+            window.addEventListener('keydown', blockRefresh);
+            window.addEventListener('contextmenu', blockContextMenu);
+
+            setTimeout(() => {
+                sessionStorage.removeItem('breakcode_locked');
+                sessionStorage.removeItem('breakcode_lock_until');
+                overlay.style.display = 'none';
+                window.removeEventListener('keydown', blockRefresh);
+                window.removeEventListener('contextmenu', blockContextMenu);
+
+                attemptsLeft = 3;
+                const status = document.getElementById('gameResult');
+                if (status) {
+                    status.style.color = "var(--text-muted)";
+                    status.innerHTML = "SYSTEM ZRESTARTOWANY. POZOSTAŁE PRÓBY: 3";
+                }
+                document.getElementById('digit1').value = '';
+                document.getElementById('digit2').value = '';
+                document.getElementById('digit3').value = '';
+            }, 10000);
+        }
+
+        function blockRefresh(e) {
+            if (e.key === 'F5' || (e.ctrlKey && e.key === 'r') || (e.metaKey && e.key === 'r')) {
+                e.preventDefault();
+            }
+        }
+
+        function blockContextMenu(e) {
+            e.preventDefault();
+        }
+
+        function checkLockout() {
+            const lockedUntil = parseInt(sessionStorage.getItem('breakcode_lock_until')) || 0;
+            if (sessionStorage.getItem('breakcode_locked') === 'true' && Date.now() < lockedUntil) {
+                triggerInfection();
+            } else {
+                sessionStorage.removeItem('breakcode_locked');
+                sessionStorage.removeItem('breakcode_lock_until');
+            }
+        }
+
+        document.querySelectorAll('.code-input').forEach((input, index, inputs) => {
+            input.addEventListener('input', () => {
+                if (input.value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+        });
+
+        /* LOGIKA ANKIETY: ZATRZYMANIE PRZYCISKU NIE NA 0.5s CO 10 SEKUND */
+        let isGlitched = false;
+
+        setInterval(() => {
+            isGlitched = true;
+            const btnNo = document.getElementById('btnNo');
+            if (btnNo) {
+                btnNo.style.background = "#ef4444";
+                btnNo.style.color = "#fff";
+                btnNo.innerText = "NIE!";
+            }
+
+            setTimeout(() => {
+                isGlitched = false;
+                if (btnNo) {
+                    btnNo.style.background = "rgba(239, 68, 68, 0.2)";
+                    btnNo.style.color = "#ef4444";
+                    btnNo.innerText = "NIE";
+                }
+            }, 500);
+        }, 10000);
+
+        function moveNoButton() {
+            if (isGlitched) return;
+
+            const btnNo = document.getElementById('btnNo');
+            const card = document.getElementById('pollCard');
+
+            const cardRect = card.getBoundingClientRect();
+            const btnWidth = btnNo.offsetWidth;
+            const btnHeight = btnNo.offsetHeight;
+
+            const maxX = cardRect.width - btnWidth - 30;
+            const maxY = cardRect.height - btnHeight - 30;
+
+            const newX = Math.max(15, Math.floor(Math.random() * maxX));
+            const newY = Math.max(15, Math.floor(Math.random() * maxY));
+
+            btnNo.style.position = 'absolute';
+            btnNo.style.width = `${btnWidth}px`;
+            btnNo.style.left = `${newX}px`;
+            btnNo.style.top = `${newY}px`;
+        }
+
+        function voteYes() {
+            const controls = document.getElementById('pollControls');
+            const result = document.getElementById('pollResult');
+            
+            controls.style.display = 'none';
+            result.style.display = 'block';
+            result.style.color = '#4ade80';
+            result.innerHTML = `
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 5px;">Dziękuję za głos! ✦</div>
+                <div style="color: var(--text-muted); font-size: 0.8rem;">WYNIK ANKIETY: 100% ZADOWOLONYCH CZYTELNIKÓW.</div>
+            `;
+        }
+
+        function clickNoButton() {
+            sessionStorage.setItem('breakcode_locked', 'true');
+            sessionStorage.setItem('breakcode_lock_until', Date.now() + 10000);
+            triggerInfection();
+        }
+
+        /* WCZYTYWANIE NAJNOWSZEGO WPISU Z ADMINA */
+        document.addEventListener('DOMContentLoaded', function() {
+            const box = document.getElementById('latestPostBox');
+            let allData = JSON.parse(localStorage.getItem('breakcode_master_data')) || [];
+
+            if (allData.length === 0) {
+                box.innerHTML = '<span>Brak publikacji w bazie. Dodaj pierwszy wpis w panelu Admina.</span>';
+                return;
+            }
+
+            const latest = allData[0];
+            box.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <span style="color: var(--accent-moon); font-size: 0.75rem; font-weight: 700;">[${latest.target.toUpperCase()}] ${latest.category}</span>
+                        <h3 style="color: #fff; margin: 4px 0 0 0; font-size: 1.1rem;">${latest.title}</h3>
+                    </div>
+                    <a href="wpis.html?id=${latest.id}" style="color: var(--accent-moon); text-decoration: none; font-weight: 600; font-size: 0.88rem;">Otwórz wpis →</a>
+                </div>
+            `;
+        });
+    </script>
+
+    <!-- GLOBALNY SKRYPT LICZNIKA CZASU SESJI -->
+    <script>
+        (function() {
+            const lockedUntil = parseInt(sessionStorage.getItem('breakcode_lock_until')) || 0;
+            if (sessionStorage.getItem('breakcode_locked') === 'true' && Date.now() < lockedUntil) {
+                if (!window.location.href.includes('index.html')) {
+                    window.location.href = 'index.html';
+                }
+            }
+
+            let secondsSpent = parseInt(sessionStorage.getItem('breakcode_session_time')) || 0;
+
+            function updateClockAndTimer() {
+                secondsSpent++;
+                sessionStorage.setItem('breakcode_session_time', secondsSpent);
+
+                const mins = Math.floor(secondsSpent / 60).toString().padStart(2, '0');
+                const secs = (secondsSpent % 60).toString().padStart(2, '0');
+
+                const timerEl = document.getElementById('globalSessionTimer');
+                const clockEl = document.getElementById('globalClockTime');
+
+                if (timerEl) timerEl.innerText = `${mins}:${secs}`;
+                if (clockEl) {
+                    const now = new Date();
+                    clockEl.innerText = now.toLocaleTimeString('pl-PL');
+                }
+            }
+
+            updateClockAndTimer();
+            setInterval(updateClockAndTimer, 1000);
+        })();
+    </script>
+</body>
+</html>
