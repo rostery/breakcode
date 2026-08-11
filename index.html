@@ -156,7 +156,7 @@
 
         .discord-btn:hover { opacity: 0.9; }
 
-        /* STYLIZACJA KAFELKA ANKIETY (50/50) */
+        /* STYLIZACJA KAFELKA ANKIETY */
         .poll-buttons-container {
             display: flex;
             gap: 15px;
@@ -186,10 +186,14 @@
             border-radius: 6px;
             font-weight: 700;
             cursor: pointer;
-            transition: top 0.15s ease, left 0.15s ease, background 0.2s, color 0.2s;
-            z-index: 20;
+            transition: background 0.2s, color 0.2s;
             box-sizing: border-box;
             text-align: center;
+        }
+
+        .poll-btn-no:hover {
+            background: #ef4444;
+            color: #fff;
         }
 
         /* EKRAN AWARII Z MIGAJĄCYM EFEKTEM */
@@ -283,8 +287,8 @@
         
         <div class="spinner"></div>
         
-        <div style="color: #ef4444; font-size: 0.75rem; margin-top: 20px; z-index: 3; letter-spacing: 1px;">
-            STATUS: LOCK_ENGAGED // RESTARTING SYSTEM...
+        <div style="color: #ef4444; font-size: 0.75rem; margin-top: 20px; z-index: 3; letter-spacing: 1px;" id="lockCountdown">
+            STATUS: LOCK_ENGAGED // RESTARTING SYSTEM... (10s)
         </div>
     </div>
 
@@ -369,7 +373,7 @@
                     </div>
                 </div>
 
-                <!-- KAFELEK 2: ANKIETA (50/50, ZATRZYMANIE CO 10S) -->
+                <!-- KAFELEK 2: ANKIETA (BEZ UCIEKANIA, OD RAZU GLITCH) -->
                 <div class="dash-card" id="pollCard">
                     <div>
                         <span class="card-tag">📊 ANKIETA SYSTEMOWA // SYSTEM_CHECK</span>
@@ -384,7 +388,7 @@
                             TAK ✦
                         </button>
 
-                        <button id="btnNo" onmouseenter="moveNoButton()" onclick="clickNoButton()" class="poll-btn-no">
+                        <button onclick="clickNoButton()" class="poll-btn-no">
                             NIE
                         </button>
                     </div>
@@ -453,12 +457,24 @@
         /* EKRAN AWARII / INFEKCJI */
         function triggerInfection() {
             const overlay = document.getElementById('infectionOverlay');
+            const countdownEl = document.getElementById('lockCountdown');
             overlay.style.display = 'flex';
 
             window.addEventListener('keydown', blockRefresh);
             window.addEventListener('contextmenu', blockContextMenu);
 
+            let timeLeft = 10;
+            countdownEl.innerText = `STATUS: LOCK_ENGAGED // RESTARTING SYSTEM... (${timeLeft}s)`;
+
+            const interval = setInterval(() => {
+                timeLeft--;
+                if (timeLeft > 0) {
+                    countdownEl.innerText = `STATUS: LOCK_ENGAGED // RESTARTING SYSTEM... (${timeLeft}s)`;
+                }
+            }, 1000);
+
             setTimeout(() => {
+                clearInterval(interval);
                 sessionStorage.removeItem('breakcode_locked');
                 sessionStorage.removeItem('breakcode_lock_until');
                 overlay.style.display = 'none';
@@ -504,50 +520,6 @@
                 }
             });
         });
-
-        /* LOGIKA ANKIETY: ZATRZYMANIE PRZYCISKU NIE NA 0.5s CO 10 SEKUND */
-        let isGlitched = false;
-
-        setInterval(() => {
-            isGlitched = true;
-            const btnNo = document.getElementById('btnNo');
-            if (btnNo) {
-                btnNo.style.background = "#ef4444";
-                btnNo.style.color = "#fff";
-                btnNo.innerText = "NIE!";
-            }
-
-            setTimeout(() => {
-                isGlitched = false;
-                if (btnNo) {
-                    btnNo.style.background = "rgba(239, 68, 68, 0.2)";
-                    btnNo.style.color = "#ef4444";
-                    btnNo.innerText = "NIE";
-                }
-            }, 500);
-        }, 10000);
-
-        function moveNoButton() {
-            if (isGlitched) return;
-
-            const btnNo = document.getElementById('btnNo');
-            const card = document.getElementById('pollCard');
-
-            const cardRect = card.getBoundingClientRect();
-            const btnWidth = btnNo.offsetWidth;
-            const btnHeight = btnNo.offsetHeight;
-
-            const maxX = cardRect.width - btnWidth - 30;
-            const maxY = cardRect.height - btnHeight - 30;
-
-            const newX = Math.max(15, Math.floor(Math.random() * maxX));
-            const newY = Math.max(15, Math.floor(Math.random() * maxY));
-
-            btnNo.style.position = 'absolute';
-            btnNo.style.width = `${btnWidth}px`;
-            btnNo.style.left = `${newX}px`;
-            btnNo.style.top = `${newY}px`;
-        }
 
         function voteYes() {
             const controls = document.getElementById('pollControls');
