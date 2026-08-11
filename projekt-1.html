@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nazwa Projektu // breakcode</title>
+    <title>Mój Pierwszy Projekt // breakcode</title>
     <link rel="icon" type="image/png" href="ksiezyc.png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,6 +37,14 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+        .post-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+        }
         .post-content {
             font-size: 1.05rem;
             line-height: 1.8;
@@ -60,25 +68,26 @@
 </head>
 <body>
 
-    <div class="container">
-        <!-- Nawigacja powrotna -->
+    <div class="container" style="position: relative; z-index: 1;">
         <div style="padding-top: 20px;">
-            <a href="index.html" class="back-link">← Powrót do Terminala Głównego</a>
+            <a href="portfolio.html" class="back-link">← Powrót do Portfolio</a>
         </div>
 
         <article class="post-container">
             <div class="post-header">
-                <span class="post-meta">KATEGORIA // DATA PUBLIKACJI</span>
-                <h1 class="post-title">Tytuł Twojego Projektu</h1>
+                <span class="post-meta">PROJEKT KOMERCYJNY // 2026</span>
+                <h1 class="post-title">Mój Pierwszy Projekt</h1>
             </div>
+
+            <!-- Zdjęcie wewnątrz wpisu -->
+            <img src="zdjecie-projektu-1.jpg" alt="Zdjęcie projektu" class="post-image" onerror="this.style.display='none'">
 
             <div class="post-content">
-                <p>Tutaj wpisz główny wstęp lub zajawkę swojego projektu. Opisz, w czym pomagasz, jakie technologie zostały użyte albo jaki problem udało się rozwiązać.</p>
-                
-                <p>W tym miejscu możesz dodać kolejne akapity tekstu, opisywać proces tworzenia lub wklejać linki i zdjęcia.</p>
+                <p>Tutaj umieszczasz pełny opis swojego projektu, wyzwania, z którymi się zmierzyłeś, oraz wykorzystane technologie.</p>
+                <p>Każdy kolejny projekt tworzysz w identyczny sposób jako osobną podstronę HTML (np. <code>projekt-2.html</code>).</p>
             </div>
 
-            <a href="index.html" class="back-link">← Wróć na stronę główną</a>
+            <a href="portfolio.html" class="back-link">← Wróć do Portfolio</a>
         </article>
     </div>
 
