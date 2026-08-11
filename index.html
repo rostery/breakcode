@@ -196,7 +196,7 @@
             color: #fff;
         }
 
-        /* EKRAN AWARII Z MIGAJĄCYM EFEKTEM */
+        /* EKRAN AWARII Z MIGAJĄCYM EFEKTEM (TYLKO DLA PRZYCISKU NIE) */
         #infectionOverlay {
             position: fixed;
             top: 0;
@@ -280,7 +280,7 @@
 </head>
 <body>
 
-    <!-- EKRAN AWARII Z NAPISEM PO ANGIELSKU -->
+    <!-- EKRAN AWARII DLA ANKIETY (PRZYCISK NIE) -->
     <div id="infectionOverlay" class="glitch-screen-flicker">
         <div class="error-code">⚠️ You shouldn't have done that</div>
         <div class="error-sub">System security breach detected. Session memory has been temporarily locked.</div>
@@ -346,13 +346,13 @@
             <!-- KAFELKI INTERAKTYWNE -->
             <div class="dashboard-grid">
                 
-                <!-- KAFELEK 1: MINI-GRA Z DISCORDEM -->
+                <!-- KAFELEK 1: ŁAMACZ SZYFRÓW (BŁĄD 404 TYLKO NA TABLICY) -->
                 <div class="dash-card">
                     <div>
                         <span class="card-tag">🎮 ŁAMACZ SZYFRÓW // DISCORD</span>
                         <h2 class="card-title">Złam 3-cyfrowy kod</h2>
                         <p style="color: var(--text-muted); font-size: 0.88rem; line-height: 1.5; margin: 0;">
-                            Wprowadź sekwencję cyfr, aby odblokować zaproszenie na Discorda. <i>(Uwaga: Masz 3 próby. Podpowiedź: Kod błędu braku zasobu)</i>.
+                            Wprowadź sekwencję cyfr, aby odblokować zaproszenie na Discorda. <i>(Podpowiedź: Kod błędu braku zasobu)</i>.
                         </p>
 
                         <div class="code-display">
@@ -364,7 +364,7 @@
 
                     <div>
                         <button onclick="checkCode()" class="btn-action-game">Weryfikuj kod →</button>
-                        <div id="gameResult" class="game-status" style="color: var(--text-muted);">POZOSTAŁE PRÓBY: 3</div>
+                        <div id="gameResult" class="game-status" style="color: var(--text-muted);">STATUS: ODBLOKOWANY</div>
                         <div id="discordReward" style="display: none;">
                             <a href="https://discord.gg/TWOJ_LINK" target="_blank" class="discord-btn">
                                 👾 Dołącz do Discorda (Rozmawiaj ze stwórcą) →
@@ -373,7 +373,7 @@
                     </div>
                 </div>
 
-                <!-- KAFELEK 2: ANKIETA (NIE = GLITCH) -->
+                <!-- KAFELEK 2: ANKIETA (NIE = GLITCH I BLOKADA STRONY) -->
                 <div class="dash-card" id="pollCard">
                     <div>
                         <span class="card-tag">📊 ANKIETA SYSTEMOWA // SYSTEM_CHECK</span>
@@ -416,9 +416,8 @@
     <!-- SKRYPTY LOGIKI -->
     <script>
         const SECRET_CODE = "404";
-        let attemptsLeft = 3;
 
-        /* OBSŁUGA ŁAMACZA SZYFRÓW (KOD 404 I 3 PRÓBY) */
+        /* ŁAMACZ SZYFRÓW - WYŚWIETLA BŁĄD 404 TYLKO NA TABLICY */
         function checkCode() {
             const d1 = document.getElementById('digit1').value;
             const d2 = document.getElementById('digit2').value;
@@ -433,17 +432,13 @@
                 status.innerHTML = "🔓 KOD POPRAWNY! Przełamano błąd.";
                 discordBox.style.display = "block";
             } else {
-                attemptsLeft--;
-                if (attemptsLeft > 0) {
-                    status.style.color = "#ef4444";
-                    status.innerHTML = `❌ BŁĄD. Pozostałe próby: ${attemptsLeft}`;
-                } else {
-                    triggerInfection();
-                }
+                status.style.color = "#ef4444";
+                status.innerHTML = "❌ BŁĄD 404: Nie znaleziono zasobu.";
+                discordBox.style.display = "none";
             }
         }
 
-        /* EKRAN AWARII / INFEKCJI */
+        /* EKRAN AWARII / INFEKCJI - URUCHAMIANY TYLKO PO KLIKNIĘCIU NIE W ANKIECIE */
         function triggerInfection() {
             const overlay = document.getElementById('infectionOverlay');
             const countdownEl = document.getElementById('lockCountdown');
@@ -467,16 +462,6 @@
                 overlay.style.display = 'none';
                 window.removeEventListener('keydown', blockRefresh);
                 window.removeEventListener('contextmenu', blockContextMenu);
-
-                attemptsLeft = 3;
-                const status = document.getElementById('gameResult');
-                if (status) {
-                    status.style.color = "var(--text-muted)";
-                    status.innerHTML = "POZOSTAŁE PRÓBY: 3";
-                }
-                document.getElementById('digit1').value = '';
-                document.getElementById('digit2').value = '';
-                document.getElementById('digit3').value = '';
             }, 10000);
         }
 
