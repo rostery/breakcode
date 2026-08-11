@@ -373,7 +373,7 @@
                     </div>
                 </div>
 
-                <!-- KAFELEK 2: ANKIETA (BEZ UCIEKANIA, OD RAZU GLITCH) -->
+                <!-- KAFELEK 2: ANKIETA (ZA KAŻDYM RAZEM KLIKNIĘCIE NIE = GLITCH) -->
                 <div class="dash-card" id="pollCard">
                     <div>
                         <span class="card-tag">📊 ANKIETA SYSTEMOWA // SYSTEM_CHECK</span>
@@ -388,7 +388,7 @@
                             TAK ✦
                         </button>
 
-                        <button onclick="clickNoButton()" class="poll-btn-no">
+                        <button onclick="triggerInfection()" class="poll-btn-no">
                             NIE
                         </button>
                     </div>
@@ -418,17 +418,8 @@
         const SECRET_CODE = "404";
         let attemptsLeft = 3;
 
-        document.addEventListener('DOMContentLoaded', function() {
-            checkLockout();
-        });
-
         /* OBSŁUGA ŁAMACZA SZYFRÓW */
         function checkCode() {
-            if (sessionStorage.getItem('breakcode_locked') === 'true') {
-                triggerInfection();
-                return;
-            }
-
             const d1 = document.getElementById('digit1').value;
             const d2 = document.getElementById('digit2').value;
             const d3 = document.getElementById('digit3').value;
@@ -447,14 +438,12 @@
                     status.style.color = "#ef4444";
                     status.innerHTML = `❌ BŁĄD. Pozostałe próby: ${attemptsLeft}`;
                 } else {
-                    sessionStorage.setItem('breakcode_locked', 'true');
-                    sessionStorage.setItem('breakcode_lock_until', Date.now() + 10000);
                     triggerInfection();
                 }
             }
         }
 
-        /* EKRAN AWARII / INFEKCJI */
+        /* EKRAN AWARII / INFEKCJI - URUCHAMIANY ZAWSZE PO KLIKNIĘCIU NIE */
         function triggerInfection() {
             const overlay = document.getElementById('infectionOverlay');
             const countdownEl = document.getElementById('lockCountdown');
@@ -475,8 +464,6 @@
 
             setTimeout(() => {
                 clearInterval(interval);
-                sessionStorage.removeItem('breakcode_locked');
-                sessionStorage.removeItem('breakcode_lock_until');
                 overlay.style.display = 'none';
                 window.removeEventListener('keydown', blockRefresh);
                 window.removeEventListener('contextmenu', blockContextMenu);
@@ -503,16 +490,6 @@
             e.preventDefault();
         }
 
-        function checkLockout() {
-            const lockedUntil = parseInt(sessionStorage.getItem('breakcode_lock_until')) || 0;
-            if (sessionStorage.getItem('breakcode_locked') === 'true' && Date.now() < lockedUntil) {
-                triggerInfection();
-            } else {
-                sessionStorage.removeItem('breakcode_locked');
-                sessionStorage.removeItem('breakcode_lock_until');
-            }
-        }
-
         document.querySelectorAll('.code-input').forEach((input, index, inputs) => {
             input.addEventListener('input', () => {
                 if (input.value.length === 1 && index < inputs.length - 1) {
@@ -532,12 +509,6 @@
                 <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 5px;">Dziękuję za głos! ✦</div>
                 <div style="color: var(--text-muted); font-size: 0.8rem;">WYNIK ANKIETY: 100% ZADOWOLONYCH CZYTELNIKÓW.</div>
             `;
-        }
-
-        function clickNoButton() {
-            sessionStorage.setItem('breakcode_locked', 'true');
-            sessionStorage.setItem('breakcode_lock_until', Date.now() + 10000);
-            triggerInfection();
         }
 
         /* WCZYTYWANIE NAJNOWSZEGO WPISU Z ADMINA */
@@ -566,13 +537,6 @@
     <!-- GLOBALNY SKRYPT LICZNIKA CZASU SESJI -->
     <script>
         (function() {
-            const lockedUntil = parseInt(sessionStorage.getItem('breakcode_lock_until')) || 0;
-            if (sessionStorage.getItem('breakcode_locked') === 'true' && Date.now() < lockedUntil) {
-                if (!window.location.href.includes('index.html')) {
-                    window.location.href = 'index.html';
-                }
-            }
-
             let secondsSpent = parseInt(sessionStorage.getItem('breakcode_session_time')) || 0;
 
             function updateClockAndTimer() {
