@@ -24,6 +24,7 @@
             margin: 0 auto;
             padding: 20px;
             background-color: #f9f9f9;
+            transition: background-color 0.3s;
         }
         header {
             background: #fff;
@@ -54,27 +55,82 @@
             color: #666;
             font-size: 0.9rem;
         }
-        /* Styl dla uciekającego guzika (easter egg) */
-        .easter-egg-container {
-            position: relative;
-            height: 100px;
-            margin-top: 20px;
-            border: 1px dashed #ccc;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        #uciekajacy-guzik {
-            padding: 10px 20px;
+
+        /* Styl przycisku */
+        #glitch-btn {
+            padding: 12px 24px;
             background-color: #ff4757;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            position: absolute;
-            transition: top 0.1s ease, left 0.1s ease;
+            font-size: 1rem;
+        }
+        #glitch-btn:hover {
+            background-color: #ff6b81;
+        }
+
+        /* Ekran blokady z efektem glitcha */
+        #glitch-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            color: #0ff;
+            z-index: 9999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            pointer-events: none; /* Blokuje interakcję */
+        }
+
+        .glitch-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            position: relative;
+            animation: glitch 0.3s infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+                text-shadow: -2px -2px #ff00ff, 2px 2px #00ffff;
+            }
+            20% {
+                transform: translate(-3px, 3px);
+                text-shadow: 2px -2px #ff00ff, -2px 2px #00ffff;
+            }
+            40% {
+                transform: translate(3px, -3px);
+                text-shadow: -2px 2px #ff00ff, 2px -2px #00ffff;
+            }
+            60% {
+                transform: translate(-2px, -2px);
+                text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff;
+            }
+            80% {
+                transform: translate(2px, 2px);
+                text-shadow: -2px -2px #ff00ff, 2px 2px #00ffff;
+            }
+            100% {
+                transform: translate(0);
+                text-shadow: -2px -2px #ff00ff, 2px 2px #00ffff;
+            }
+        }
+
+        #timer {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #ff3838;
         }
     </style>
 </head>
@@ -94,41 +150,46 @@
     </section>
 
     <section>
-        <h2>Easter Egg (Uciekający przycisk)</h2>
-        <p>Spróbuj kliknąć lub najechać na przycisk poniżej:</p>
-        <div class="easter-egg-container" id="kontener">
-            <button id="uciekajacy-guzik">Złap mnie!</button>
-        </div>
+        <h2>Test Systemu</h2>
+        <p>Kliknij poniższy przycisk, aby przetestować zabezpieczenie:</p>
+        <button id="glitch-btn">Nie klikaj tutaj</button>
     </section>
 
+    <!-- Ekran blokady i glitcha -->
+    <div id="glitch-overlay">
+        <div class="glitch-text">⚠️ BŁĘDNY WYBÓR! SYSTEM ZABLOKOWANY ⚠️</div>
+        <p style="color: #fff; margin-top: 10px;">Złamałeś zabezpieczenia. Odczekaj chwilę.</p>
+        <div id="timer">Czas do odblokowania: 10s</div>
+    </div>
+
     <script>
-        const uciekajacyGuzik = document.getElementById('uciekajacy-guzik');
-        const kontener = document.getElementById('kontener');
+        const btn = document.getElementById('glitch-btn');
+        const overlay = document.getElementById('glitch-overlay');
+        const timerDisplay = document.getElementById('timer');
+        
+        let isLocked = false;
 
-        function ucieczka() {
-            // Obliczamy losową pozycję wewnątrz kontenera
-            const maxX = kontener.clientWidth - uciekajacyGuzik.clientWidth;
-            const maxY = kontener.clientHeight - uciekajacyGuzik.clientHeight;
+        btn.addEventListener('click', function() {
+            if (isLocked) return;
+            isLocked = true;
+
+            // Pokaż overlay z glitchem
+            overlay.style.display = 'flex';
             
-            const randomX = Math.floor(Math.random() * maxX);
-            const randomY = Math.floor(Math.random() * maxY);
-            
-            uciekajacyGuzik.style.left = randomX + 'px';
-            uciekajacyGuzik.style.top = randomY + 'px';
-        }
+            let timeLeft = 10;
+            timerDisplay.textContent = `Czas do odblokowania: ${timeLeft}s`;
 
-        // Działanie na komputerze (najechanie myszką)
-        uciekajacyGuzik.addEventListener('mouseover', ucieczka);
+            // Odliczanie czasu
+            const interval = setInterval(function() {
+                timeLeft--;
+                timerDisplay.textContent = `Czas do odblokowania: ${timeLeft}s`;
 
-        // Działanie na telefonie (dotknięcie palcem lub kliknięcie)
-        uciekajacyGuzik.addEventListener('touchstart', function(e) {
-            e.preventDefault(); // Zapobiega standardowemu kliknięciu, ucieka od razu
-            ucieczka();
-        });
-
-        uciekajacyGuzik.addEventListener('click', function(e) {
-            e.preventDefault();
-            ucieczka();
+                if (timeLeft <= 0) {
+                    clearInterval(interval);
+                    overlay.style.display = 'none';
+                    isLocked = false;
+                }
+            }, 1000);
         });
     </script>
 
