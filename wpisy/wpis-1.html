@@ -14,13 +14,15 @@
     <meta property="og:title" content="Błąd w systemie 0x01: Dlaczego tu trafiłeś? | breakcode">
     <meta property="og:description" content="Nie zapraszam Cię w czeluści mojego umysłu po to, aby dać ci rozrywkę. To ty jesteś moją rozrywką.">
     <meta property="og:type" content="article">
-    <meta property="og:image" content="blad-w-systemie-0x01.jpg">
+    <meta property="og:image" content="../blad-w-systemie-0x01.jpg">
 
-    <link rel="stylesheet" href="style.css">
+    <!-- Poprawione ścieżki do katalogu głównego -->
+    <link rel="stylesheet" href="../style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="ksiezyc.png">
+    <link rel="icon" type="image/png" href="../ksiezyc.png">
+    
     <style>
         .post-container {
             max-width: 780px;
@@ -86,9 +88,9 @@
             font-family: var(--font-heading);
         }
 
-        /* MECHANIKA ARG: NIEWIDOCZNY TEKST (ODSŁANIANY PO ZAZNACZENIU MYSZKĄ) */
+        /* MECHANIKA ARG: NIEWIDOCZNY TEKST */
         .hidden-ink {
-            color: #06070d; /* Kolor tła */
+            color: #06070d;
             user-select: text;
             transition: color 0.5s ease;
         }
@@ -142,19 +144,13 @@
 </head>
 <body>
 
-    <!-- SZYFR W KODZIE HTML // SZYFR MORSE'A: "PATRZ W KOD" -->
-    <!-- .--. .- - .-. --.. / .-- / -.- --- -.. -->
-
-    <!-- SZYFR BASE64: "Pierwsza warstwa została naruszona. Szukaj ukrytego atramentu." -->
-    <!-- UGllcndzemEgd2Fyc3R3YSB6b3N0YcWCYSBuYXJ1c3pvbmEuIFN6dWthaiB1a3J5dGVnbyBhdHJhbWVudHUu -->
-
     <!-- ANIMOWANA MGŁA W TLE -->
     <div class="fog-container">
         <div class="fog-layer"></div>
         <div class="fog-layer-2"></div>
     </div>
 
-    <!-- KOMUNIKAT ANOMALII PO KLIKNIĘCIU "KRZYŻYK" -->
+    <!-- KOMUNIKAT ANOMALII PO KLIKNIĘCIU -->
     <div id="systemOverlay">
         <div style="color: var(--accent-moon); margin-bottom: 8px;">[SYSTEM_ANOMALY]:</div>
         <p style="margin: 0 0 12px 0;" id="overlayText">Naprawdę próbowałeś stąd uciec?</p>
@@ -163,29 +159,26 @@
 
     <div class="container" style="position: relative; z-index: 1;">
         <header>
-            <a href="index.html" style="text-decoration: none; color: inherit;">
+            <a href="../index.html" style="text-decoration: none; color: inherit;">
                 <div class="logo" style="display: flex; align-items: center; gap: 10px;">
-                    <img src="ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
-                    <div>
-                        breakcode
-                        <span style="display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 400; letter-spacing: 1px; text-transform: lowercase;"></span>
-                    </div>
+                    <img src="../ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>breakcode</div>
                 </div>
             </a>
-              <nav>
-    <a href="index.html">✦ Strona główna</a>
-    <a href="blog.html">✦ Blog</a>
-    <a href="masz-pomysl.html">✦ Masz pomysł?</a>
-    <a href="laboratorium.html">✦ Laboratorium</a>
-    <a href="o-mnie.html">✦ O mnie</a>
-    <a href="portfolio.html">✦ Portfolio</a>
-    <a href="kontakt.html">✦ Kontakt</a>
-    <a href="admin.html" style="color: var(--text-muted);">✦ Admin</a>
-		</nav> 
+            <nav>
+                <a href="../index.html">✦ Strona główna</a>
+                <a href="../blog.html">✦ Blog</a>
+                <a href="../masz-pomysl.html">✦ Masz pomysł?</a>
+                <a href="../laboratorium.html">✦ Laboratorium</a>
+                <a href="../o-mnie.html">✦ O mnie</a>
+                <a href="../portfolio.html">✦ Portfolio</a>
+                <a href="../kontakt.html">✦ Kontakt</a>
+                <a href="../admin.html" style="color: var(--text-muted);">✦ Admin</a>
+            </nav> 
         </header>
 
         <main class="post-container">
-            <a href="blog.html" class="back-link">← Powrót do archiwum</a>
+            <a href="../blog.html" class="back-link">← Powrót do archiwum</a>
 
             <article>
                 <header>
@@ -194,9 +187,8 @@
                     <div class="post-date">ID: 0x01_INIT | STATUS: UNSTABLE | CZAS: INF</div>
                 </header>
 
-                <!-- GRAFIKA GŁÓWNA WPISU (SEO) -->
                 <div class="featured-image-container">
-                    <img src="blad-w-systemie-0x01.jpg" alt="Błąd w systemie 0x01 - anomalia cyfrowa w breakcode" onerror="this.src='https://via.placeholder.com/1200x630/080911/38bdf8?text=ERROR+0x01:+UNEXPECTED_ENTRY'">
+                    <img src="../blad-w-systemie-0x01.jpg" alt="Błąd w systemie 0x01 - anomalia cyfrowa w breakcode" onerror="this.src='https://via.placeholder.com/1200x630/080911/38bdf8?text=ERROR+0x01:+UNEXPECTED_ENTRY'">
                 </div>
 
                 <div class="post-content">
@@ -225,22 +217,22 @@
                 </div>
             </article>
         </main>
-<footer style="margin-top: 60px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-top: 20px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-        <div style="font-size: 0.85rem; color: var(--text-muted);">
-            © Katarzyna Cherek // breakcode. Wszelkie prawa zastrzeżone. 
-            <br>
-            <small style="opacity: 0.7;">Treści i projekty chronione prawem autorskim.</small>
-        </div>
-        <div class="social-links">
-            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-            <a href="https://facebook.com" target="_blank">Facebook</a>
-        </div>
-    </div>
-</footer>
+
+        <footer style="margin-top: 60px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-top: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                    © Katarzyna Cherek // breakcode. Wszelkie prawa zastrzeżone. 
+                    <br>
+                    <small style="opacity: 0.7;">Treści i projekty chronione prawem autorskim.</small>
+                </div>
+                <div class="social-links">
+                    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                    <a href="https://facebook.com" target="_blank">Facebook</a>
+                </div>
+            </div>
+        </footer>
     </div>
 
-    <!-- SKRYPT INTERAKCYJNY ARG -->
     <script>
         function triggerAnomaly() {
             const overlay = document.getElementById('systemOverlay');
@@ -252,6 +244,5 @@
             overlay.style.display = 'none';
         }
     </script>
-
 </body>
 </html>
