@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>„Lubię utożsamiać się z daną postacią” – artykuł o cosplayu // breakcode</title>
+    <link rel="icon" type="image/png" href="../ksiezyc.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .project-container { max-width: 800px; margin: 40px auto; padding: 20px; }
+        .project-card {
+            background-color: var(--card-bg, rgba(18, 21, 38, 0.85));
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            padding: 40px;
+        }
+        .project-meta {
+            color: var(--accent-moon, #38bdf8);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .project-title {
+            color: #fff;
+            font-size: 2.2rem;
+            font-family: var(--font-heading);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        .project-banner {
+            width: 100%;
+            max-height: 350px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            background: #080911;
+        }
+        .project-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .project-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(8, 9, 17, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .project-info-grid span { color: var(--accent-moon); font-weight: 700; }
+        .project-body {
+            color: var(--text-main, #f8fafc);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        .project-body p { margin-bottom: 20px; }
+        .quote-box {
+            border-left: 3px solid var(--accent-moon, #38bdf8);
+            background: rgba(56, 189, 248, 0.05);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 30px 0;
+            font-style: italic;
+            color: #fff;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: var(--accent-moon); }
+    </style>
+</head>
+<body>
+
+    <div class="container" style="position: relative; z-index: 1;">
+        <header>
+            <a href="../index.html" style="text-decoration: none; color: inherit;">
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="../ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>breakcode</div>
+                </div>
+            </a>
+            <nav>
+                <a href="../index.html">✦ Strona główna</a>
+                <a href="../blog.html">✦ Blog</a>
+                <a href="../portfolio.html" style="color: var(--accent-moon);">✦ Portfolio</a>
+                <a href="../kontakt.html">✦ Kontakt</a>
+            </nav>
+        </header>
+
+        <main class="project-container">
+            <a href="../portfolio.html" class="back-link">← Powrót do portfolio</a>
+
+            <div class="project-card">
+                <span class="project-meta">AUTORSKI WYWIAD // PORTEL.PL // KULTURA I PASJE</span>
+                <h1 class="project-title">„Lubię utożsamiać się z daną postacią” – mój autorski artykuł o cosplayu</h1>
+                
+                <!-- ZDJĘCIE GŁÓWNE PROJEKTU -->
+                <div class="project-banner">
+                    <img src="../projekt-4.jpg" alt="Cosplay" onerror="this.style.display='none'">
+                </div>
+
+                <!-- METADANE ARTYKUŁU -->
+                <div class="project-info-grid">
+                    <div>BOHATERKA: <span>Aleksandra Rudolf</span></div>
+                    <div>SZKOŁA: <span>ZS Gospodarczych w Elblągu</span></div>
+                    <div>TEMATYKA: <span>Cosplay, gry, anime, popkultura</span></div>
+                    <div>PUBLIKACJA: <span>portEl.pl</span></div>
+                </div>
+
+                <div class="project-body">
+                    <p>
+                        Podczas praktyk w redakcji miałam świetną możliwość samodzielnego angażowania się w projekty i szukania własnych niszowych tematów. Kiedy w redakcji padło pytanie, czy znam jakichś ciekawych ludzi, odpowiedziałam pytaniem: „A wiecie co to cosplay?”. Tak właśnie zrodził się pomysł na ten artykuł.
+                    </p>
+
+                    <div class="quote-box">
+                        „Lubię utożsamiać się z daną postacią” – słowa, które stały się kluczem do zrozumienia fenomenu i motywacji stojących za tą barwną pasją.
+                    </div>
+
+                    <h3 style="color: #fff; font-family: var(--font-heading); margin: 30px 0 15px 0;">O czym jest tekst</h3>
+                    <p>
+                        Postanowiłam napisać o hobby, które w naszym mieście było wówczas rzadkie i mało znane – o cosplayu. Przeprowadziłam wywiad z Aleksandrą Rudolf, uczennicą Zespołu Szkół Gospodarczych w Elblągu, która pasjonuje się przebieraniem za postacie z popkultury, czerpiąc inspiracje z gier, anime czy seriali.
+                    </p>
+
+                    <h3 style="color: #fff; font-family: var(--font-heading); margin: 30px 0 15px 0;">Kulisy rozmowy</h3>
+                    <p>
+                        W wywiadzie rozmawiałyśmy o tym, jak zacząć przygodę z cosplayem, skąd czerpać inspiracje, jak wygląda proces tworzenia strojów czy stylizacji peruk w domowych warunkach oraz z jakimi stereotypami mierzą się fani tej subkultury.
+                    </p>
+
+                    <h3 style="color: #fff; font-family: var(--font-heading); margin: 30px 0 15px 0;">Dlaczego to ważny projekt</h3>
+                    <p>
+                        Ten temat w pełni wyszukałam i zrealizowałam sama, co dało mi ogromną satysfakcję i pozwoliło pokazać czytelnikom portElu barwny, nietuzinkowy świat młodzieżowych pasji.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
