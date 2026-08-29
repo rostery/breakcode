@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masz pomysł? // breakcode</title>
+    <link rel="icon" type="image/png" href="ksiezyc.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .idea-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .idea-card {
+            background-color: var(--card-bg, rgba(18, 21, 38, 0.75));
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            padding: 35px;
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: var(--accent-moon, #38bdf8);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #080911;
+            border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+            color: var(--text-main, #f8fafc);
+            border-radius: 6px;
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--accent-moon, #38bdf8);
+        }
+
+        .btn-send {
+            width: 100%;
+            background-color: var(--accent-moon, #38bdf8);
+            color: #000000;
+            border: none;
+            padding: 14px 28px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .btn-send:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-send:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-status-msg {
+            display: none;
+            margin-top: 20px;
+            padding: 14px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        .status-success {
+            background-color: rgba(74, 222, 128, 0.1);
+            border: 1px solid #4ade80;
+            color: #4ade80;
+        }
+
+        .status-error {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ANIMOWANA MGŁA W TLE -->
+    <div class="fog-container">
+        <div class="fog-layer"></div>
+        <div class="fog-layer-2"></div>
+    </div>
+
+    <div class="container" style="position: relative; z-index: 1;">
+        <!-- PEŁNA NAWIGACJA -->
+        <header>
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>breakcode</div>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">✦ Strona główna</a>
+                <a href="blog.html">✦ Blog</a>
+                <a href="masz-pomysl.html" style="color: var(--accent-moon);">✦ Masz pomysł?</a>
+                <a href="laboratorium.html">✦ Laboratorium</a>
+                <a href="o-mnie.html">✦ O mnie</a>
+                <a href="portfolio.html">✦ Portfolio</a>
+                <a href="kontakt.html">✦ Kontakt</a>
+                <a href="admin.html">✦ Admin</a>
+            </nav>
+        </header>
+
+        <!-- GLOBALNY PASEK CZASU SYSTEMOWEGO -->
+        <div class="system-bar" style="display: flex; gap: 20px; flex-wrap: wrap; background: rgba(8, 9, 17, 0.8); border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1)); padding: 10px 18px; border-radius: 8px; margin-bottom: 25px; font-family: monospace; font-size: 0.85rem; color: var(--text-muted, #94a3b8);">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                CZAS SESJI: <span id="globalSessionTimer" style="color: var(--accent-moon, #38bdf8); font-weight: 700;">00:00</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                GODZINA: <span id="globalClockTime" style="color: var(--accent-moon, #38bdf8); font-weight: 700;">00:00:00</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+                STATUS: <span style="color: #4ade80; font-weight: 700;">● SYSTEM AKTYWNY</span>
+            </div>
+        </div>
+
+        <main class="idea-container">
+            <section class="hero" style="text-align: center; margin-bottom: 20px;">
+                <h1 style="font-size: 2.2rem; color: #ffffff; margin-bottom: 10px;">Masz Pomysł?</h1>
+                <p style="color: var(--text-muted); font-size: 1rem;">
+                    Masz koncepcję na wpis, eksperyment do Laboratorium lub nową funkcję na stronie? Podziel się swoim pomysłem.
+                </p>
+            </section>
+
+            <div class="idea-card">
+                <form id="ideaForm" action="https://formspree.io/f/xeajgjnb" method="POST">
+                    <div class="form-group">
+                        <label for="name">Imię / Pseudonim (opcjonalnie)</label>
+                        <input type="text" id="name" name="name" placeholder="Anonim lub Twój nick...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Twój Adres E-mail (jeśli chcesz odpowiedź)</label>
+                        <input type="email" id="email" name="email" placeholder="kontakt@domena.pl">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">Czego dotyczy Twój pomysł?</label>
+                        <select id="category" name="category">
+                            <option value="blog">✦ Artykuł / Temat na Bloga</option>
+                            <option value="laboratorium">✦ Eksperyment do Laboratorium</option>
+                            <option value="feature">✦ Nowa funkcja na stronie breakcode</option>
+                            <option value="innowacja">✦ Inny / Ogólny koncept</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Opis pomysłu</label>
+                        <textarea id="message" name="message" rows="6" required placeholder="Opisz swój pomysł w kilku zdaniach..."></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn-send">Wyślij pomysł →</button>
+                </form>
+
+                <!-- KOMUNIKAT POTWIERDZENIA -->
+                <div id="statusMessage" class="form-status-msg"></div>
+            </div>
+        </main>
+
+        <footer style="margin-top: 60px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-top: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                    © Katarzyna Cherek // breakcode. Wszelkie prawa zastrzeżone.
+                </div>
+                <div class="social-links">
+                    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                    <a href="https://facebook.com" target="_blank">Facebook</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- SKRYPT BEZPOŚREDNIEJ WYSYŁKI BEZ PRZEŁADOWANIA STRONY -->
+    <script>
+        const form = document.getElementById('ideaForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const statusMsg = document.getElementById('statusMessage');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Wysyłanie...';
+            statusMsg.style.display = 'none';
+            statusMsg.className = 'form-status-msg';
+
+            const data = new FormData(form);
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    statusMsg.innerText = '✦ Dziękuję! Twój pomysł został pomyślnie wysłany.';
+                    statusMsg.classList.add('status-success');
+                    statusMsg.style.display = 'block';
+                    form.reset();
+                } else {
+                    throw new Error('Błąd wysyłania');
+                }
+            } catch (error) {
+                statusMsg.innerText = '❌ Wystąpił błąd podczas wysyłania. Spróbuj ponownie.';
+                statusMsg.classList.add('status-error');
+                statusMsg.style.display = 'block';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = 'Wyślij pomysł →';
+            }
+        });
+    </script>
+
+    <!-- GLOBALNY SKRYPT LICZNIKA CZASU SESJI -->
+    <script>
+        (function() {
+            let secondsSpent = parseInt(sessionStorage.getItem('breakcode_session_time')) || 0;
+
+            function updateClockAndTimer() {
+                secondsSpent++;
+                sessionStorage.setItem('breakcode_session_time', secondsSpent);
+
+                const mins = Math.floor(secondsSpent / 60).toString().padStart(2, '0');
+                const secs = (secondsSpent % 60).toString().padStart(2, '0');
+
+                const timerEl = document.getElementById('globalSessionTimer');
+                const clockEl = document.getElementById('globalClockTime');
+
+                if (timerEl) timerEl.innerText = `${mins}:${secs}`;
+                if (clockEl) {
+                    const now = new Date();
+                    clockEl.innerText = now.toLocaleTimeString('pl-PL');
+                }
+            }
+
+            updateClockAndTimer();
+            setInterval(updateClockAndTimer, 1000);
+        })();
+    </script>
+</body>
+</html>

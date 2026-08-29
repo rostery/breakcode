@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin // breakcode</title>
+    <link rel="icon" type="image/png" href="ksiezyc.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .admin-container { max-width: 1200px; margin: 40px auto; padding: 20px; }
+        
+        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        @media (max-width: 900px) { .admin-grid { grid-template-columns: 1fr; } }
+
+        .admin-card {
+            background-color: var(--card-bg, #121526);
+            border: 1px solid var(--border-color, rgba(255,255,255,0.1));
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        #loginBox { max-width: 400px; margin: 80px auto; }
+        .form-group { margin-bottom: 20px; }
+        
+        label {
+            display: block; color: var(--accent-moon, #38bdf8); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+        }
+
+        input, textarea, select {
+            width: 100%; padding: 12px 15px; background-color: #080911; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); color: var(--text-main, #f8fafc); border-radius: 6px; font-family: var(--font-body); font-size: 0.95rem; outline: none; box-sizing: border-box; transition: border-color 0.3s;
+        }
+        input:focus, textarea:focus, select:focus { border-color: var(--accent-moon, #38bdf8); }
+
+        .editor-toolbar {
+            background-color: #080911; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); border-bottom: none; border-radius: 6px 6px 0 0; padding: 8px; display: flex; gap: 6px; flex-wrap: wrap;
+        }
+        .editor-toolbar button, .editor-toolbar label {
+            background: #121526; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); color: #fff; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; margin: 0; display: inline-flex; align-items: center;
+        }
+        .editor-toolbar button:hover, .editor-toolbar label:hover { background: var(--accent-moon, #38bdf8); color: #000; }
+
+        .editor-content {
+            min-height: 180px; max-height: 350px; overflow-y: auto; background-color: #080911; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); border-radius: 0 0 6px 6px; padding: 15px; color: var(--text-main, #f8fafc); outline: none;
+        }
+        .editor-content img { max-width: 100%; border-radius: 6px; margin: 10px 0; }
+
+        .preview-box { background: #080911; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); border-radius: 8px; padding: 25px; min-height: 350px; }
+        .preview-title { font-size: 1.8rem; color: #ffffff; margin: 10px 0; font-family: var(--font-heading); }
+        .preview-category { color: var(--accent-moon, #38bdf8); font-size: 0.8rem; text-transform: uppercase; font-weight: 600; }
+        .preview-img { width: 100%; max-height: 220px; object-fit: cover; border-radius: 6px; margin: 15px 0; display: none; }
+        
+        .preview-audio-container { background: rgba(56, 189, 248, 0.08); border: 1px solid var(--accent-moon, #38bdf8); padding: 15px; border-radius: 8px; margin: 15px 0; display: none; }
+        .preview-body { color: var(--text-main, #f8fafc); line-height: 1.7; font-size: 0.95rem; }
+        .preview-body img { max-width: 100%; border-radius: 6px; margin: 10px 0; }
+
+        .btn-action {
+            width: 100%; background-color: var(--accent-moon, #38bdf8); color: #000000; border: none; padding: 14px 28px; font-weight: 700; font-size: 0.95rem; border-radius: 6px; cursor: pointer; transition: transform 0.2s, opacity 0.2s;
+        }
+        .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
+        
+        #adminPanel { display: none; }
+
+        .manage-section { margin-top: 40px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-top: 25px; }
+
+        .post-manage-item {
+            display: flex; justify-content: space-between; align-items: center; background: #080911; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding: 12px 18px; border-radius: 6px; margin-bottom: 10px; gap: 15px; flex-wrap: wrap;
+        }
+
+        .btn-edit { background: rgba(56, 189, 248, 0.2); color: var(--accent-moon, #38bdf8); border: 1px solid var(--accent-moon, #38bdf8); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: 600; }
+        .btn-edit:hover { background: var(--accent-moon, #38bdf8); color: #000; }
+
+        .btn-delete { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+        .btn-delete:hover { background: #ef4444; color: #fff; }
+
+        .edit-banner {
+            background: rgba(251, 191, 36, 0.15); border: 1px solid #fbbf24; color: #fbbf24; padding: 10px 15px; border-radius: 6px; margin-bottom: 20px; font-size: 0.85rem; display: flex; justify-content: space-between; align-items: center;
+        }
+        .edit-banner button { background: #fbbf24; color: #000; border: none; padding: 4px 10px; border-radius: 4px; font-weight: 700; cursor: pointer; }
+        
+        .updated-badge {
+            display: inline-block; background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; margin-top: 5px; font-family: monospace; font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fog-container"><div class="fog-layer"></div><div class="fog-layer-2"></div></div>
+
+    <div class="container" style="position: relative; z-index: 1;">
+        <header>
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>breakcode</div>
+                </div>
+            </a>
+            <nav>
+                <a href="index.html">✦ Strona główna</a>
+                <a href="blog.html">✦ Blog</a>
+                <a href="admin.html" style="color: var(--accent-moon);">✦ Admin</a>
+            </nav>
+        </header>
+
+        <!-- EKRAN LOGOWANIA -->
+        <main id="loginBox">
+            <div class="admin-card">
+                <h1 style="color: #ffffff; font-size: 1.5rem; margin-top: 0; margin-bottom: 20px; text-align: center;">✦ Autoryzacja Systemu</h1>
+                <form id="loginForm">
+                    <div class="form-group"><label>Użytkownik</label><input type="text" id="usernameInput" required placeholder="Login..."></div>
+                    <div class="form-group"><label>Hasło</label><input type="password" id="passwordInput" required placeholder="••••••••"></div>
+                    <p id="loginError" style="color: #ef4444; font-size: 0.85rem; display: none; margin-bottom: 15px;">Niepoprawny login lub hasło.</p>
+                    <button type="submit" class="btn-action">Zaloguj się →</button>
+                </form>
+            </div>
+        </main>
+
+        <!-- PANEL PUBLIKACJI / EDYCJI -->
+        <main id="adminPanel" class="admin-container">
+            <div class="admin-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                    <h1 style="color: #ffffff; font-size: 1.8rem; margin: 0;">✦ Edytor i Podgląd Treści</h1>
+                    <button onclick="logout()" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 6px 12px; border-radius: 4px; cursor: pointer;">Wyloguj</button>
+                </div>
+                
+                <div class="admin-grid">
+                    <!-- FORMULARZ -->
+                    <form id="contentForm">
+                        <div id="editBanner" class="edit-banner" style="display: none;">
+                            <span>⚠️ TRYB EDYCJI. Zmiany nadpiszą wybrany wpis.</span>
+                            <button type="button" onclick="cancelEdit()">Anuluj</button>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gdzie publikujemy treść?</label>
+                            <select id="targetSection" onchange="toggleLabOptions(); updatePreview();" required>
+                                <option value="blog">✦ BLOG (Wpis / Artykuł)</option>
+                                <option value="portfolio">✦ PORTFOLIO (Projekt / Praca)</option>
+                                <option value="laboratorium">✦ LABORATORIUM (Eksperyment / Prototyp)</option>
+                            </select>
+                        </div>
+
+                        <div id="labTypeBox" class="form-group" style="display: none; background: rgba(56, 189, 248, 0.05); padding: 15px; border-radius: 8px; border: 1px dashed var(--accent-moon);">
+                            <label style="color: #fff;">Typ Eksperymentu w Laboratorium:</label>
+                            <select id="labType" onchange="toggleAudioField(); updatePreview();">
+                                <option value="image">🖼️ Zdjęcie / Grafika / Tekst</option>
+                                <option value="audio">🎵 Dźwięk / Audio (Z komputera)</option>
+                                <option value="code">⚡ Kod / Prototyp Interaktywny</option>
+                            </select>
+                            <div id="audioField" style="display: none; margin-top: 15px;">
+                                <label>Załącz plik dźwiękowy (.mp3 / .wav):</label>
+                                <input type="file" id="audioFileInput" accept="audio/*" onchange="handleAudioUpload(event)">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Kategoria // Tagi</label>
+                            <input type="text" id="itemCategory" required placeholder="CODE & TECH" oninput="updatePreview()">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tytuł wpisu / projektu</label>
+                            <input type="text" id="itemTitle" required placeholder="Tytuł..." oninput="updatePreview()">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Zdjęcie Okładki / Miniaturka (Automatyczna Kompresja):</label>
+                            <input type="file" id="coverFileInput" accept="image/*" onchange="handleCoverUpload(event)">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Krótki skrót na kartę (Wstęp)</label>
+                            <textarea id="itemExcerpt" rows="2" required placeholder="Krótki opis na kafelek..." oninput="updatePreview()"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Pełna treść (Formatuj przyciskami)</label>
+                            <div class="editor-toolbar">
+                                <button type="button" onclick="formatDoc('bold')"><b>B</b></button>
+                                <button type="button" onclick="formatDoc('italic')"><i>I</i></button>
+                                <button type="button" onclick="formatDoc('underline')"><u>U</u></button>
+                                <button type="button" onclick="formatDoc('formatBlock', 'H2')">H2</button>
+                                <button type="button" onclick="formatDoc('insertUnorderedList')">• Lista</button>
+                                <button type="button" onclick="formatDoc('createLink')">🔗 Link</button>
+                                <label for="bodyImageInput">🖼️ Dodaj zdjęcie z dysku</label>
+                                <input type="file" id="bodyImageInput" accept="image/*" onchange="insertImageToBody(event)" style="display: none;">
+                            </div>
+                            <div class="editor-content" id="editor" contenteditable="true" oninput="updatePreview()"></div>
+                        </div>
+
+                        <button type="submit" id="submitActionBtn" class="btn-action">Opublikuj na stronie →</button>
+                    </form>
+
+                    <!-- PODGLĄD NA ŻYWO -->
+                    <div>
+                        <label style="margin-bottom: 12px;">Podgląd elementu na żywo:</label>
+                        <div class="preview-box">
+                            <span class="preview-category" id="prevCategory">KATEGORIA</span>
+                            <h2 class="preview-title" id="prevTitle">Tytuł pojawi się tutaj...</h2>
+                            <img src="" id="prevImg" class="preview-img" alt="Podgląd Okładki">
+                            <div id="prevAudioBox" class="preview-audio-container">
+                                <span style="color: var(--accent-moon); font-weight: 600; font-size: 0.8rem;">🎧 PRÓBKA DŹWIĘKOWA Z KOMPUTERA:</span>
+                                <audio id="prevAudioPlayer" controls style="width: 100%; margin-top: 8px;"></audio>
+                            </div>
+                            <div class="preview-body" id="prevBody"><p style="color: var(--text-muted);">Zacznij pisać w edytorze...</p></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KOPIA ZAPASOWA BAZY DANYCH -->
+                <div style="background: #080911; border: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding: 20px; border-radius: 8px; margin-top: 35px;">
+                    <label style="margin-bottom: 10px;">Kopia Zapasowa Bazy Danych</label>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button type="button" onclick="exportData()" style="background: var(--card-bg); border: 1px solid var(--accent-moon); color: var(--accent-moon); padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: 600;">
+                            💾 Pobierz kopię (.json)
+                        </button>
+
+                        <label for="importFile" style="background: var(--card-bg); border: 1px solid var(--border-color); color: var(--text-main); padding: 10px 18px; border-radius: 6px; cursor: pointer; font-weight: 600; margin: 0;">
+                            📂 Wgraj kopię z pliku
+                        </label>
+                        <input type="file" id="importFile" accept=".json" onchange="importData(event)" style="display: none;">
+                    </div>
+                </div>
+
+                <!-- LISTA DANYCH DO EDYCJI -->
+                <div class="manage-section">
+                    <h2 style="color: #ffffff; margin-top: 0; font-size: 1.3rem;">Zarządzanie opublikowanymi treściami</h2>
+                    <div id="allContentList"></div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        const ADMIN_USER = "admin";
+        const ADMIN_PASS = "breakcode123";
+        let uploadedCoverData = '';
+        let uploadedAudioData = '';
+        let editingId = null; 
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (sessionStorage.getItem('isLoggedIn') === 'true') { showPanel(); }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (document.getElementById('usernameInput').value === ADMIN_USER && document.getElementById('passwordInput').value === ADMIN_PASS) {
+                sessionStorage.setItem('isLoggedIn', 'true'); showPanel();
+            } else { document.getElementById('loginError').style.display = 'block'; }
+        });
+
+        function showPanel() {
+            document.getElementById('loginBox').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            loadAllContent();
+        }
+        function logout() { sessionStorage.removeItem('isLoggedIn'); location.reload(); }
+
+        function toggleLabOptions() {
+            const target = document.getElementById('targetSection').value;
+            const labBox = document.getElementById('labTypeBox');
+            if (target === 'laboratorium') {
+                labBox.style.display = 'block'; toggleAudioField();
+            } else {
+                labBox.style.display = 'none'; document.getElementById('audioField').style.display = 'none';
+            }
+        }
+        function toggleAudioField() {
+            const labType = document.getElementById('labType').value;
+            const audioField = document.getElementById('audioField');
+            if (labType === 'audio') { audioField.style.display = 'block'; } else { audioField.style.display = 'none'; }
+        }
+
+        function compressImage(file, maxWidth, quality, callback) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width, height = img.height;
+                    if (width > maxWidth) { height = Math.round((height * maxWidth) / width); width = maxWidth; }
+                    canvas.width = width; canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    callback(canvas.toDataURL('image/webp', quality));
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleCoverUpload(event) {
+            const file = event.target.files[0]; if (!file) return;
+            compressImage(file, 800, 0.7, function(compressedUrl) { uploadedCoverData = compressedUrl; updatePreview(); });
+        }
+        function insertImageToBody(event) {
+            const file = event.target.files[0]; if (!file) return;
+            compressImage(file, 800, 0.7, function(compressedUrl) {
+                document.execCommand('insertHTML', false, `<br><img src="${compressedUrl}" style="max-width:100%; border-radius:6px; margin:10px 0;"><br>`);
+                updatePreview();
+            });
+        }
+        function handleAudioUpload(event) {
+            const file = event.target.files[0]; if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) { uploadedAudioData = e.target.result; updatePreview(); };
+            reader.readAsDataURL(file);
+        }
+
+        function formatDoc(cmd, value = null) {
+            if (cmd === 'createLink') { const url = prompt('URL:'); if (url) document.execCommand(cmd, false, url); }
+            else { document.execCommand(cmd, false, value); }
+            updatePreview();
+        }
+
+        function updatePreview() {
+            document.getElementById('prevCategory').innerText = document.getElementById('itemCategory').value || 'KATEGORIA';
+            document.getElementById('prevTitle').innerText = document.getElementById('itemTitle').value || 'Tytuł pojawi się tutaj...';
+            
+            const prevImgEl = document.getElementById('prevImg');
+            if (uploadedCoverData) { prevImgEl.src = uploadedCoverData; prevImgEl.style.display = 'block'; } else { prevImgEl.style.display = 'none'; }
+
+            const prevAudioBox = document.getElementById('prevAudioBox');
+            if (document.getElementById('targetSection').value === 'laboratorium' && document.getElementById('labType').value === 'audio' && uploadedAudioData) {
+                document.getElementById('prevAudioPlayer').src = uploadedAudioData; prevAudioBox.style.display = 'block';
+            } else { prevAudioBox.style.display = 'none'; }
+
+            document.getElementById('prevBody').innerHTML = document.getElementById('editor').innerHTML || '<p style="color: var(--text-muted);">Zacznij pisać w edytorze...</p>';
+        }
+
+        document.getElementById('contentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const target = document.getElementById('targetSection').value;
+            let allData = JSON.parse(localStorage.getItem('breakcode_master_data')) || [];
+            
+            const now = new Date();
+            const timeString = now.toLocaleDateString('pl-PL') + ', ' + now.toLocaleTimeString('pl-PL');
+
+            if (editingId) {
+                const index = allData.findIndex(item => item.id === editingId);
+                if (index !== -1) {
+                    allData[index].target = target;
+                    allData[index].labType = target === 'laboratorium' ? document.getElementById('labType').value : 'standard';
+                    allData[index].audioUrl = uploadedAudioData;
+                    allData[index].category = document.getElementById('itemCategory').value;
+                    allData[index].title = document.getElementById('itemTitle').value;
+                    allData[index].image = uploadedCoverData || allData[index].image; 
+                    allData[index].excerpt = document.getElementById('itemExcerpt').value;
+                    allData[index].content = document.getElementById('editor').innerHTML;
+                    allData[index].updatedAt = timeString; 
+                }
+                alert('Pomyślnie zaktualizowano wpis!');
+            } else {
+                const newItem = {
+                    id: target + '_' + Date.now(),
+                    target: target,
+                    labType: target === 'laboratorium' ? document.getElementById('labType').value : 'standard',
+                    audioUrl: uploadedAudioData,
+                    category: document.getElementById('itemCategory').value,
+                    title: document.getElementById('itemTitle').value,
+                    image: uploadedCoverData || 'https://via.placeholder.com/600x300/080911/38bdf8?text=BREAKCODE_LOG',
+                    excerpt: document.getElementById('itemExcerpt').value,
+                    content: document.getElementById('editor').innerHTML,
+                    date: new Date().toLocaleDateString('pl-PL')
+                };
+                allData.unshift(newItem);
+                alert(`Pomyślnie opublikowano nowy wpis!`);
+            }
+            
+            try { localStorage.setItem('breakcode_master_data', JSON.stringify(allData)); } 
+            catch (err) { alert('Błąd zapisu: przekroczono limit pamięci.'); return; }
+
+            cancelEdit(); 
+            loadAllContent();
+        });
+
+        function editItem(id) {
+            let allData = JSON.parse(localStorage.getItem('breakcode_master_data')) || [];
+            const item = allData.find(i => i.id === id);
+            if (!item) return;
+
+            editingId = id;
+            document.getElementById('editBanner').style.display = 'flex';
+            document.getElementById('submitActionBtn').innerText = '💾 Zaktualizuj wpis →';
+            
+            document.getElementById('targetSection').value = item.target;
+            document.getElementById('itemCategory').value = item.category;
+            document.getElementById('itemTitle').value = item.title;
+            document.getElementById('itemExcerpt').value = item.excerpt;
+            document.getElementById('editor').innerHTML = item.content || '';
+            
+            uploadedCoverData = item.image !== 'https://via.placeholder.com/600x300/080911/38bdf8?text=BREAKCODE_LOG' ? item.image : '';
+            uploadedAudioData = item.audioUrl || '';
+            
+            toggleLabOptions();
+            if (item.target === 'laboratorium' && item.labType) {
+                document.getElementById('labType').value = item.labType;
+                toggleAudioField();
+            }
+
+            updatePreview();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function cancelEdit() {
+            editingId = null;
+            document.getElementById('editBanner').style.display = 'none';
+            document.getElementById('submitActionBtn').innerText = 'Opublikuj na stronie →';
+            
+            document.getElementById('contentForm').reset();
+            document.getElementById('editor').innerHTML = '';
+            uploadedCoverData = '';
+            uploadedAudioData = '';
+            
+            toggleLabOptions();
+            updatePreview();
+        }
+
+        /* FUNKCJE KOPII ZAPASOWEJ (.JSON) */
+        function exportData() {
+            const data = localStorage.getItem('breakcode_master_data') || '[]';
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `breakcode_backup_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+        }
+
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    if (Array.isArray(imported)) {
+                        localStorage.setItem('breakcode_master_data', JSON.stringify(imported));
+                        alert('Kopia zapasowa wgrana pomyślnie!');
+                        loadAllContent();
+                    } else { alert('Nieprawidłowy format pliku.'); }
+                } catch (err) { alert('Błąd odczytu pliku JSON.'); }
+            };
+            reader.readAsText(file);
+        }
+
+        function loadAllContent() {
+            const listContainer = document.getElementById('allContentList');
+            let allData = JSON.parse(localStorage.getItem('breakcode_master_data')) || [];
+            if (allData.length === 0) { listContainer.innerHTML = '<p style="color: var(--text-muted);">Brak opublikowanych elementów.</p>'; return; }
+
+            listContainer.innerHTML = '';
+            allData.forEach(item => {
+                const labTag = item.labType ? ` [${item.labType.toUpperCase()}]` : '';
+                const updateBadge = item.updatedAt ? `<div class="updated-badge">Edytowano: ${item.updatedAt}</div>` : '';
+                
+                listContainer.innerHTML += `
+                    <div class="post-manage-item">
+                        <div style="flex: 1;">
+                            <span style="color: var(--accent-moon); font-size: 0.75rem; font-weight: 700;">[${item.target.toUpperCase()}${labTag}]</span>
+                            <span style="color: #fff; font-size: 0.95rem; font-weight: 600; margin-left: 5px;">${item.title}</span>
+                            <br><small style="color: var(--text-muted);">Utworzono: ${item.date}</small>
+                            ${updateBadge}
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn-edit" onclick="editItem('${item.id}')">✏️ Edytuj</button>
+                            <button class="btn-delete" onclick="deleteItem('${item.id}')">Usuń</button>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function deleteItem(id) {
+            if (confirm('Czy na pewno chcesz trwale usunąć ten wpis?')) {
+                let allData = JSON.parse(localStorage.getItem('breakcode_master_data')) || [];
+                allData = allData.filter(i => i.id !== id);
+                localStorage.setItem('breakcode_master_data', JSON.stringify(allData));
+                loadAllContent();
+            }
+        }
+    </script>
+</body>
+</html>
