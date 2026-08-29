@@ -195,7 +195,33 @@
 
             <!-- WŁAŚCIWA ZAWARTOŚĆ PORTFOLIO -->
             <div id="portfolioContent">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+               <!-- WŁAŚCIWA ZAWARTOŚĆ PORTFOLIO -->
+            <div id="portfolioContent" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+                    <h1 style="font-size: 2.2rem; color: #ffffff; margin: 0;">Twoje Projekty & Portfolio</h1>
+                    <button onclick="lockPortfolio()" style="background: rgba(239,68,68,0.2); border: 1px solid #ef4444; color: #ef4444; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Zablokuj ponownie</button>
+                </div>
+                
+                <!-- SIATKA KAFELKÓW PORTFOLIO -->
+                <div class="posts-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;">
+                    
+                    <!-- KAFELEK 1 -->
+                    <article class="post-card" style="background: var(--card-bg, rgba(18, 21, 38, 0.85)); border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1)); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+                        <div style="width: 100%; height: 160px; overflow: hidden; background: #080911;">
+                            <img src="zdjecie-projektu-1.jpg" alt="Projekt 1" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x160?text=Projekt+1'">
+                        </div>
+                        <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
+                            <span style="color: var(--accent-moon, #38bdf8); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">WEB & CODE</span>
+                            <h3 style="color: #fff; font-size: 1.15rem; margin: 0 0 10px 0; font-family: var(--font-heading);">Nazwa Twojego Projektu</h3>
+                            <p style="color: var(--text-muted, #94a3b8); font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px; flex-grow: 1;">Krótki opis tego, co robi ten projekt i jakie technologie wykorzystuje...</p>
+                            <a href="projekty/projekt-1.html" style="color: var(--accent-moon, #38bdf8); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Zobacz projekt →</a>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+
+                
                     <h1 style="font-size: 2.2rem; color: #ffffff; margin: 0;">Twoje Projekty & Portfolio</h1>
                     <button onclick="lockPortfolio()" style="background: rgba(239,68,68,0.2); border: 1px solid #ef4444; color: #ef4444; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Zablokuj ponownie</button>
                 </div>
