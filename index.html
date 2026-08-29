@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -337,7 +338,26 @@
             <!-- SEKCJA OSTATNIEJ TRANSMISJI Z ADMINA -->
             <div class="recent-box">
                 <span class="card-tag">⚡ Aktualności </span>
+				<<div class="posts-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; margin-top: 20px;">
+    
+    <!-- KAFELEK 1: Wpis z folderu wpisy -->
+									<article class="post-card" style="background: var(--card-bg, rgba(18, 21, 38, 0.85)); border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1)); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+									<div style="width: 100%; height: 160px; overflow: hidden; background: #080911;">
+									<img src="zdjecie-projektu-1.jpg" alt="Wpis 1" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x160?text=Brak+obrazu'">
+									</div>
+									<div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
+									<span style="color: var(--accent-moon, #38bdf8); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">AKTUALNOŚCI</span>
+									<h3 style="color: #fff; font-size: 1.15rem; margin: 0 0 10px 0; font-family: var(--font-heading);">Witaj w systemie // Pierwszy wpis testowy</h3>
+									<p style="color: var(--text-muted, #94a3b8); font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px; flex-grow: 1;">Witaj w nowej erze projektu breakcode! System został pomyślnie uruchomiony...</p>
+									<a href="wpisy/wpis-1.html" style="color: var(--accent-moon, #38bdf8); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Czytaj wpis →</a>
+									</div>
+									</article>
+
+									</div>
                 <div id="latestPostBox" style="margin-top: 10px; color: var(--text-muted);">
+				<div class="posts-grid" id="indexPostsGrid">
+</div>
+				
                     Ładowanie treści z bazy danych...
                 </div>
             </div>
@@ -545,5 +565,41 @@
             setInterval(updateClockAndTimer, 1000);
         })();
     </script>
+	
+	<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const grid = document.getElementById('indexPostsGrid');
+        if (!grid) return;
+
+        // Pobieramy dane z panelu admina
+        let allData = JSON.parse(localStorage.getItem('breakcode_master_data')) || [];
+        let blogPosts = allData.filter(item => item.target === 'blog');
+
+        if (blogPosts.length === 0) {
+            grid.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1;">Brak aktualności. Dodaj pierwszy wpis w panelu Admina.</p>';
+            return;
+        }
+
+        // Ograniczamy do 3 najnowszych wpisów na stronie głównej (możesz zmienić tę liczbę)
+        const latestPosts = blogPosts.slice(0, 3);
+
+        latestPosts.forEach(post => {
+            const cardHTML = `
+                <article class="post-card">
+                    <div class="post-image-placeholder" style="width: 100%; height: 160px; overflow: hidden; background: #080911;">
+                        <img src="${post.image}" alt="${post.title}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x160?text=Brak+obrazu'">
+                    </div>
+                    <div class="post-card-body" style="padding: 20px;">
+                        <span class="post-card-category" style="color: var(--accent-moon, #38bdf8); font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">${post.category || 'AKTUALNOŚCI'}</span>
+                        <h3 class="post-card-title" style="color: #fff; font-size: 1.1rem; margin: 8px 0; font-family: var(--font-heading);">${post.title}</h3>
+                        <p class="post-card-excerpt" style="color: var(--text-muted, #94a3b8); font-size: 0.85rem; line-height: 1.5; margin-bottom: 15px;">${post.excerpt}</p>
+                        <a href="wpis.html?id=${post.id}" class="post-card-link" style="color: var(--accent-moon, #38bdf8); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Czytaj więcej →</a>
+                    </div>
+                </article>
+            `;
+            grid.insertAdjacentHTML('beforeend', cardHTML);
+        });
+    });
+</script>
 </body>
 </html>
