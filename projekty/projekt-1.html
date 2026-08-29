@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nazwa Projektu // breakcode</title>
+    <link rel="icon" type="image/png" href="../ksiezyc.png">
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        .project-container { max-width: 780px; margin: 0 auto; padding: 20px 0 60px 0; }
+        .project-meta { color: var(--accent-moon); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; margin-bottom: 10px; }
+        .project-title { font-size: 2.3rem; color: #ffffff; line-height: 1.25; margin-bottom: 20px; font-family: var(--font-heading); }
+        .project-content { font-size: 1.05rem; line-height: 1.85; color: var(--text-main); }
+        .project-content p { margin-bottom: 22px; }
+        .project-content h2 { color: #ffffff; font-size: 1.5rem; margin: 40px 0 15px 0; border-left: 3px solid var(--accent-moon); padding-left: 12px; font-family: var(--font-heading); }
+        .back-link { display: inline-block; margin-bottom: 25px; color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; }
+        .back-link:hover { color: var(--accent-moon); }
+    </style>
+</head>
+<body>
+    <div class="container" style="position: relative; z-index: 1;">
+        <header>
+            <a href="../index.html" style="text-decoration: none; color: inherit;">
+                <div class="logo">breakcode</div>
+            </a>
+            <nav>
+                <a href="../index.html">✦ Strona główna</a>
+                <a href="../blog.html">✦ Blog</a>
+                <a href="../portfolio.html">✦ Portfolio</a>
+                <a href="../kontakt.html">✦ Kontakt</a>
+            </nav>
+        </header>
+
+        <main class="project-container">
+            <a href="../portfolio.html" class="back-link">← Powrót do portfolio</a>
+
+            <article>
+                <div class="project-meta">KATEGORIA // TECHNOLOGIE</div>
+                <h1 class="project-title">Nazwa Twojego Projektu</h1>
+                
+                <div style="margin: 25px 0 35px 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color); background: var(--card-bg);">
+                    <img src="../zdjecie-projektu-1.jpg" alt="Projekt" style="width: 100%; display: block;" onerror="this.src='https://via.placeholder.com/1200x630/080911/38bdf8?text=PREVIEW'">
+                </div>
+
+                <div class="project-content">
+                    <p>Tutaj umieszczasz pełny opis swojego projektu, wyzwania z jakimi się mierzysz, użyte technologie oraz linki do wersji live lub repozytorium GitHub.</p>
+                    
+                    <h2>Funkcjonalności</h2>
+                    <ul>
+                        <li>Funkcja pierwsza w projekcie...</li>
+                        <li>Funkcja druga w projekcie...</li>
+                    </ul>
+
+                    <p style="margin-top: 40px;">
+                        <a href="https://github.com" target="_blank" style="background: var(--accent-moon); color: #000; padding: 12px 20px; border-radius: 6px; text-decoration: none; font-weight: 700;">Zobacz kod na GitHubie →</a>
+                    </p>
+                </div>
+            </article>
+        </main>
+    </div>
+</body>
+</html>
