@@ -104,14 +104,24 @@
             opacity: 0.8;
         }
 
-        /* STYL TAŚMY POLICYJNEJ (PEŁNA SZEROKOŚĆ) */
-        .police-tape {
+        /* TAŚMA POLICYJNA W FORMIE X NA CAŁĄ SZEROKOŚĆ */
+        .police-tape-x-container {
             position: relative;
             width: 100vw;
             left: 50%;
             right: 50%;
             margin-left: -50vw;
             margin-right: -50vw;
+            height: 140px;
+            margin: 40px 0;
+            overflow: hidden;
+        }
+
+        .tape-line-1, .tape-line-2 {
+            position: absolute;
+            width: 120%;
+            left: -10%;
+            top: 50%;
             background: repeating-linear-gradient(
                 -45deg,
                 #facc15,
@@ -123,23 +133,30 @@
             font-weight: 800;
             text-transform: uppercase;
             font-family: monospace;
-            padding: 14px 0;
+            padding: 10px 0;
             text-align: center;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(250, 204, 21, 0.25);
-            z-index: 10;
-            margin: 35px 0;
+            box-shadow: 0 4px 15px rgba(250, 204, 21, 0.2);
+            font-size: 0.85rem;
             letter-spacing: 2px;
-            font-size: 0.95rem;
+            white-space: nowrap;
         }
 
-        .police-tape span {
-            display: inline-block;
-            background: #facc15;
-            padding: 2px 15px;
+        .tape-line-1 {
+            transform: translateY(-50%) rotate(6deg);
         }
 
-        /* STYL SEKCJI ODLICZANIA */
+        .tape-line-2 {
+            transform: translateY(-50%) rotate(-6deg);
+            background: repeating-linear-gradient(
+                45deg,
+                #facc15,
+                #facc15 35px,
+                #0b0d12 35px,
+                #0b0d12 70px
+            );
+        }
+
+        /* STYL SZYBKICH CYFEREK (ODLICZANIA BEZ DATY) */
         .countdown-box {
             background-color: var(--card-bg, rgba(18, 21, 38, 0.75));
             border: 1px dashed #facc15;
@@ -151,26 +168,28 @@
         }
 
         .countdown-timer {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: #facc15;
             margin-top: 10px;
-            letter-spacing: 2px;
+            letter-spacing: 4px;
         }
     </style>
 </head>
 <body>
 
+    <!-- ANIMOWANA MGŁA W TLE -->
     <div class="fog-container">
         <div class="fog-layer"></div>
         <div class="fog-layer-2"></div>
     </div>
 
     <div class="container" style="position: relative; z-index: 1;">
+        <!-- PEŁNA NAWIGACJA -->
         <header>
             <a href="index.html" style="text-decoration: none; color: inherit;">
                 <div class="logo" style="display: flex; align-items: center; gap: 10px;">
-                    <img src="ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <img src="ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.this.style.display='none'">
                     <div>breakcode</div>
                 </div>
             </a>
@@ -185,6 +204,7 @@
             </nav>
         </header>
 
+        <!-- GLOBALNY PASEK CZASU SYSTEMOWEGO -->
         <div class="system-bar" style="display: flex; gap: 20px; flex-wrap: wrap; background: rgba(8, 9, 17, 0.8); border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1)); padding: 10px 18px; border-radius: 8px; margin-bottom: 25px; font-family: monospace; font-size: 0.85rem; color: var(--text-muted, #94a3b8);">
             <div style="display: flex; align-items: center; gap: 8px;">
                 CZAS SESJI: <span id="globalSessionTimer" style="color: var(--accent-moon, #38bdf8); font-weight: 700;">00:00</span>
@@ -205,15 +225,19 @@
                 </p>
             </section>
 
-            <div class="police-tape">
-                <span>⚠️ UWAGA // STREFA ZAMKNIĘTA — STRONA OTWARTA JUŻ NIEDŁUGO ⚠️ UWAGA // STREFA ZAMKNIĘTA — STRONA OTWARTA JUŻ NIEDŁUGO ⚠️</span>
+            <!-- SKRZYŻOWANA TAŚMA POLICYJNA W FORMIE X -->
+            <div class="police-tape-x-container">
+                <div class="tape-line-1">⚠️ UWAGA // STREFA ZAMKNIĘTA — STRONA OTWARTA JUŻ NIEDŁUGO ⚠️ UWAGA // STREFA ZAMKNIĘTA — STRONA OTWARTA JUŻ NIEDŁUGO ⚠️</div>
+                <div class="tape-line-2">⚡ RESTRICTED ACCESS // SYSTEM INITIALIZATION IN PROGRESS ⚡ RESTRICTED ACCESS // SYSTEM INITIALIZATION IN PROGRESS ⚡</div>
             </div>
 
+            <!-- SEKCJA SZYBKICH CYFEREK (ODLICZANIE BEZ DATY) -->
             <div class="countdown-box">
-                <p style="color: var(--text-muted); font-size: 0.88rem; text-transform: uppercase; letter-spacing: 1.5px;">Do pełnego uruchomienia systemu pozostało:</p>
-                <div class="countdown-timer" id="endlessCountdown">04 DNI : 12 GODZ : 45 MIN : 30 SEK</div>
+                <p style="color: var(--text-muted); font-size: 0.88rem; text-transform: uppercase; letter-spacing: 1.5px;">Strona otwarta już niedługo // Status sekwencji:</p>
+                <div class="countdown-timer" id="fastDigits">0000000</div>
             </div>
 
+            <!-- KONTENER SIATKI LABORATORIUM -->
             <div class="projects-grid" id="labGrid"></div>
         </main>
 
@@ -230,31 +254,19 @@
         </footer>
     </div>
 
+    <!-- SKRYPT GENERUJĄCY SZYBKIE CYFERKI (BEZ OKREŚLONEJ DATY) -->
     <script>
         (function() {
-            let totalSeconds = 4 * 24 * 3600 + 12 * 3600 + 45 * 60 + 30; // Stan początkowy
-
-            function updateEndlessCountdown() {
-                if (totalSeconds <= 0) {
-                    totalSeconds = 7 * 24 * 3600; // Resetuje czas, żeby odliczanie nigdy się nie skończyło
-                }
-                totalSeconds--;
-
-                const days = Math.floor(totalSeconds / (3600 * 24));
-                const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-                const mins = Math.floor((totalSeconds % 3600) / 60);
-                const secs = totalSeconds % 60;
-
-                const countdownEl = document.getElementById('endlessCountdown');
-                if (countdownEl) {
-                    countdownEl.innerText = `${days.toString().padStart(2, '0')} DNI : ${hours.toString().padStart(2, '0')} GODZ : ${mins.toString().padStart(2, '0')} MIN : ${secs.toString().padStart(2, '0')} SEK`;
-                }
+            function updateFastDigits() {
+                const randomVal = Math.floor(Math.random() * 9000000 + 1000000);
+                const el = document.getElementById('fastDigits');
+                if (el) el.innerText = `[ ${randomVal} ]`;
             }
-
-            setInterval(updateEndlessCountdown, 1000);
+            setInterval(updateFastDigits, 70);
         })();
     </script>
 
+    <!-- SKRYPT GENERUJĄCY EKSPERYMENTY WPROWADZONE W ADMINIE -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const grid = document.getElementById('labGrid');
@@ -300,6 +312,7 @@
         });
     </script>
 
+    <!-- GLOBALNY SKRYPT LICZNIKA CZASU SESJI -->
     <script>
         (function() {
             let secondsSpent = parseInt(sessionStorage.getItem('breakcode_session_time')) || 0;
