@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        .portfolio-container { max-width: 900px; margin: 40px auto; padding: 20px; }
+        .portfolio-container { max-width: 1000px; margin: 40px auto; padding: 20px; }
         
         #lockScreen {
             background-color: var(--card-bg, #121526);
@@ -158,7 +158,7 @@
                 <h1 style="color: #fff; font-size: 1.8rem; margin: 15px 0;">Strefa zabezpieczona hasłem</h1>
                 
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px;">
-                    Portfolio dostępne jest na hasło ukryte na stronie. 
+                    Portfolio dostępne jest na hasło ukryte na stronie[cite: 6]. 
                 </p>
 
                 <form id="passwordForm" onsubmit="checkPassword(event)">
@@ -170,7 +170,7 @@
                 <!-- MINI GRA: STRZELANKA AKTYWOWANA KLIKNIĘCIEM -->
                 <div class="game-wrapper" id="gameContainer">
                     <p style="color: #fff; font-size: 0.8rem; margin-bottom: 4px; font-family: monospace;">
-                        👾 <span style="color: #ef4444;">MINIGRA:</span> Kliknij w okno gry, aby wystartować! (Strzałki/Mysz = ruch, Spacja/Klik = strzał)
+                        👾 <span style="color: #ef4444;">MINIGRA:</span> Kliknij w okno gry, aby wystartować!
                     </p>
                     
                     <div style="position: relative; display: inline-block;">
@@ -194,8 +194,6 @@
 
             <!-- WŁAŚCIWA ZAWARTOŚĆ PORTFOLIO -->
             <div id="portfolioContent">
-               <!-- WŁAŚCIWA ZAWARTOŚĆ PORTFOLIO -->
-            <div id="portfolioContent" style="display: none;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
                     <h1 style="font-size: 2.2rem; color: #ffffff; margin: 0;">Twoje Projekty & Portfolio</h1>
                     <button onclick="lockPortfolio()" style="background: rgba(239,68,68,0.2); border: 1px solid #ef4444; color: #ef4444; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Zablokuj ponownie</button>
@@ -204,30 +202,32 @@
                 <!-- SIATKA KAFELKÓW PORTFOLIO -->
                 <div class="posts-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;">
                     
-                    <!-- KAFELEK 1 -->
+                    <!-- PROJEKT 1 -->
                     <article class="post-card" style="background: var(--card-bg, rgba(18, 21, 38, 0.85)); border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1)); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
                         <div style="width: 100%; height: 160px; overflow: hidden; background: #080911;">
                             <img src="zdjecie-projektu-1.jpg" alt="Projekt 1" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x160?text=Projekt+1'">
                         </div>
                         <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
                             <span style="color: var(--accent-moon, #38bdf8); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">WEB & CODE</span>
-                            <h3 style="color: #fff; font-size: 1.15rem; margin: 0 0 10px 0; font-family: var(--font-heading);">Nazwa Twojego Projektu</h3>
-                            <p style="color: var(--text-muted, #94a3b8); font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px; flex-grow: 1;">Krótki opis tego, co robi ten projekt i jakie technologie wykorzystuje...</p>
+                            <h3 style="color: #fff; font-size: 1.15rem; margin: 0 0 10px 0; font-family: var(--font-heading);">Projekt 1: Nazwa</h3>
+                            <p style="color: var(--text-muted, #94a3b8); font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px; flex-grow: 1;">Tutaj pojawi się opis Twojej pierwszej pracy lub systemu...</p>
                             <a href="projekty/projekt-1.html" style="color: var(--accent-moon, #38bdf8); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Zobacz projekt →</a>
                         </div>
                     </article>
 
-                </div>
-            </div>
+                    <!-- PROJEKT 2 -->
+                    <article class="post-card" style="background: var(--card-bg, rgba(18, 21, 38, 0.85)); border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1)); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column;">
+                        <div style="width: 100%; height: 160px; overflow: hidden; background: #080911;">
+                            <img src="zdjecie-projektu-2.jpg" alt="Projekt 2" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x160?text=Projekt+2'">
+                        </div>
+                        <div style="padding: 20px; display: flex; flex-direction: column; flex-grow: 1;">
+                            <span style="color: var(--accent-moon, #38bdf8); font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">SYSTEM // APP</span>
+                            <h3 style="color: #fff; font-size: 1.15rem; margin: 0 0 10px 0; font-family: var(--font-heading);">Projekt 2: Nazwa</h3>
+                            <p style="color: var(--text-muted, #94a3b8); font-size: 0.88rem; line-height: 1.5; margin-bottom: 20px; flex-grow: 1;">Krótki opis drugiego projektu zaimplementowanego w portoflio...</p>
+                            <a href="projekty/projekt-2.html" style="color: var(--accent-moon, #38bdf8); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Zobacz projekt →</a>
+                        </div>
+                    </article>
 
-                
-                    <h1 style="font-size: 2.2rem; color: #ffffff; margin: 0;">Twoje Projekty & Portfolio</h1>
-                    <button onclick="lockPortfolio()" style="background: rgba(239,68,68,0.2); border: 1px solid #ef4444; color: #ef4444; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Zablokuj ponownie</button>
-                </div>
-                
-                <div style="background: var(--card-bg, #121526); border: 1px solid var(--border-color); border-radius: 12px; padding: 30px;">
-                    <h3 style="color: #fff; margin-top: 0;">Projekt komercyjny / Zaawansowany System</h3>
-                    <p style="color: var(--text-muted);">Tutaj umieszczasz swoje projekty, opisy kodu, linki do GitHub itp. Gratulacje za odgadnięcie hasła!</p>
                 </div>
             </div>
 
@@ -278,7 +278,6 @@
             let score = 0;
             let gameOver = false;
             let isRunning = false;
-            let animationId = null;
             let keys = {};
 
             let player = { x: 215, y: 145, width: 20, height: 25, speed: 5 };
@@ -286,7 +285,6 @@
             let ghosts = [];
             let spawnTimer = 0;
 
-            // Kliknięcie w kanwę uruchamia lub resetuje grę
             canvas.addEventListener('click', () => {
                 if (!isRunning) {
                     isRunning = true;
@@ -294,18 +292,15 @@
                     if (gameOver) resetGame();
                     loop();
                 } else {
-                    // Dodatkowy strzał po kliknięciu podczas gry
                     shoot();
                 }
             });
 
-            // Sterowanie myszką (ruch gracza za kursorem wewnątrz kanwy)
             canvas.addEventListener('mousemove', (e) => {
                 if (!isRunning || gameOver) return;
                 const rect = canvas.getBoundingClientRect();
                 const mouseX = e.clientX - rect.left;
                 player.x = mouseX - player.width / 2;
-                // Ograniczenie do krawędzi
                 if (player.x < 10) player.x = 10;
                 if (player.x > canvas.width - player.width - 10) player.x = canvas.width - player.width - 10;
             });
@@ -342,7 +337,6 @@
             function update() {
                 if (!isRunning || gameOver) return;
 
-                // Sterowanie klawiaturą (strzałki / A-D) jako alternatywa dla myszki
                 if ((keys['ArrowLeft'] || keys['KeyA']) && player.x > 10) player.x -= player.speed;
                 if ((keys['ArrowRight'] || keys['KeyD']) && player.x < canvas.width - player.width - 10) player.x += player.speed;
 
@@ -407,17 +401,14 @@
                     ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
                 }
 
-                // Postać gracza
                 ctx.fillStyle = '#cbd5e1';
                 ctx.fillRect(player.x, player.y, player.width, player.height);
                 ctx.fillStyle = '#f87171';
                 ctx.fillRect(player.x + 6, player.y - 6, 8, 8);
 
-                // Pociski
                 ctx.fillStyle = '#38bdf8';
                 bullets.forEach(b => ctx.fillRect(b.x, b.y, b.width, b.height));
 
-                // Potwory
                 ghosts.forEach(g => {
                     ctx.fillStyle = '#1e293b';
                     ctx.fillRect(g.x, g.y, g.width, g.height);
@@ -446,7 +437,7 @@
                 update();
                 draw();
                 if (isRunning && !gameOver) {
-                    animationId = requestAnimationFrame(loop);
+                    requestAnimationFrame(loop);
                 }
             }
 
