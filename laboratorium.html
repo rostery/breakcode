@@ -104,24 +104,39 @@
             opacity: 0.8;
         }
 
-        /* TAŚMA POLICYJNA W FORMIE X NA CAŁĄ SZEROKOŚĆ */
-        .police-tape-x-container {
-            position: relative;
+        /* TAŚMA POLICYJNA W FORMIE X NA CAŁY EKRAN */
+        .police-tape-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100vw;
-            left: 50%;
-            right: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            height: 140px;
-            margin: 40px 0;
+            height: 100vh;
+            pointer-events: none; /* Kluczowe: pozwala klikać w elementy pod taśmą */
+            z-index: 9999;
             overflow: hidden;
         }
 
-        .tape-line-1, .tape-line-2 {
+        .tape-x-1, .tape-x-2 {
             position: absolute;
-            width: 120%;
-            left: -10%;
             top: 50%;
+            left: 50%;
+            width: 160vw;
+            height: 45px;
+            color: #0b0d12;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-family: monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .tape-x-1 {
+            transform: translate(-50%, -50%) rotate(27deg);
             background: repeating-linear-gradient(
                 -45deg,
                 #facc15,
@@ -129,24 +144,10 @@
                 #0b0d12 35px,
                 #0b0d12 70px
             );
-            color: #0b0d12;
-            font-weight: 800;
-            text-transform: uppercase;
-            font-family: monospace;
-            padding: 10px 0;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(250, 204, 21, 0.2);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            white-space: nowrap;
         }
 
-        .tape-line-1 {
-            transform: translateY(-50%) rotate(6deg);
-        }
-
-        .tape-line-2 {
-            transform: translateY(-50%) rotate(-6deg);
+        .tape-x-2 {
+            transform: translate(-50%, -50%) rotate(-27deg);
             background: repeating-linear-gradient(
                 45deg,
                 #facc15,
@@ -156,15 +157,17 @@
             );
         }
 
-        /* STYL SZYBKICH CYFEREK (ODLICZANIA BEZ DATY) */
+        /* STYL SZYBKICH CYFEREK (ODLICZANIE BEZ DATY) */
         .countdown-box {
-            background-color: var(--card-bg, rgba(18, 21, 38, 0.75));
+            background-color: var(--card-bg, rgba(18, 21, 38, 0.85));
             border: 1px dashed #facc15;
             border-radius: 12px;
             padding: 25px;
             text-align: center;
             margin-bottom: 30px;
             font-family: monospace;
+            position: relative;
+            z-index: 1;
         }
 
         .countdown-timer {
@@ -178,6 +181,12 @@
 </head>
 <body>
 
+    <!-- ANIMOWANA TAŚMA POLICYJNA W FORMIE X NA CAŁY EKRAN -->
+    <div class="police-tape-overlay">
+        <div class="tape-x-1">⚠️ UWAGA // STREFA ZAMKNIĘTA — STRONA OTWARTA JUŻ NIEDŁUGO ⚠️ UWAGA // STREFA ZAMKNIĘTA — STRONA OTWARTA JUŻ NIEDŁUGO ⚠️</div>
+        <div class="tape-x-2">⚡ RESTRICTED ACCESS // SYSTEM INITIALIZATION IN PROGRESS ⚡ RESTRICTED ACCESS // SYSTEM INITIALIZATION IN PROGRESS ⚡</div>
+    </div>
+
     <!-- ANIMOWANA MGŁA W TLE -->
     <div class="fog-container">
         <div class="fog-layer"></div>
@@ -189,7 +198,7 @@
         <header>
             <a href="index.html" style="text-decoration: none; color: inherit;">
                 <div class="logo" style="display: flex; align-items: center; gap: 10px;">
-                    <img src="ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.this.style.display='none'">
+                    <img src="ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
                     <div>breakcode</div>
                 </div>
             </a>
@@ -218,18 +227,12 @@
         </div>
 
         <main>
-            <section class="hero" style="margin-bottom: 15px;">
+            <section class="hero" style="margin-bottom: 25px;">
                 <h1 style="font-size: 2.2rem; color: #ffffff; margin-bottom: 10px;">Laboratorium // Eksperymenty</h1>
                 <p style="color: var(--text-muted); font-size: 1rem;">
                     Przestrzeń testowa na niestandardowe koncepcje, próbki dźwiękowe z dysku oraz eksperymentalne formy wypowiedzi.
                 </p>
             </section>
-
-            <!-- SKRZYŻOWANA TAŚMA POLICYJNA W FORMIE X -->
-            <div class="police-tape-x-container">
-                <div class="tape-line-1">⚠️ UWAGA // STREFA ZAMKNIĘTA — STRONA OTWARTA JUŻ NIEDŁUGO ⚠️ UWAGA // STREFA ZAMKNIĘTA — STRONA OTWARTA JUŻ NIEDŁUGO ⚠️</div>
-                <div class="tape-line-2">⚡ RESTRICTED ACCESS // SYSTEM INITIALIZATION IN PROGRESS ⚡ RESTRICTED ACCESS // SYSTEM INITIALIZATION IN PROGRESS ⚡</div>
-            </div>
 
             <!-- SEKCJA SZYBKICH CYFEREK (ODLICZANIE BEZ DATY) -->
             <div class="countdown-box">
@@ -241,7 +244,7 @@
             <div class="projects-grid" id="labGrid"></div>
         </main>
 
-        <footer style="margin-top: 60px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-top: 20px;">
+        <footer style="margin-top: 60px; border-top: 1px solid var(--border-color, rgba(255,255,255,0.1)); padding-top: 20px; position: relative; z-index: 1;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
                 <div style="font-size: 0.85rem; color: var(--text-muted);">
                     © Katarzyna Cherek // breakcode. Wszelkie prawa zastrzeżone.
