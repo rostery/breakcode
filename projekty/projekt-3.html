@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kadeci z Rycerskiej // breakcode</title>
+    <link rel="icon" type="image/png" href="../ksiezyc.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .project-container { max-width: 800px; margin: 40px auto; padding: 20px; }
+        .project-card {
+            background-color: var(--card-bg, rgba(18, 21, 38, 0.85));
+            border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+            border-radius: 12px;
+            padding: 40px;
+        }
+        .project-meta {
+            color: var(--accent-moon, #38bdf8);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .project-title {
+            color: #fff;
+            font-size: 2.2rem;
+            font-family: var(--font-heading);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        .project-banner {
+            width: 100%;
+            max-height: 350px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border-color);
+            background: #080911;
+        }
+        .project-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .project-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(8, 9, 17, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .project-info-grid span { color: var(--accent-moon); font-weight: 700; }
+        .project-body {
+            color: var(--text-main, #f8fafc);
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+        .project-body p { margin-bottom: 20px; }
+        .quote-box {
+            border-left: 3px solid var(--accent-moon, #38bdf8);
+            background: rgba(56, 189, 248, 0.05);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 30px 0;
+            font-style: italic;
+            color: #fff;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: var(--accent-moon); }
+    </style>
+</head>
+<body>
+
+    <div class="container" style="position: relative; z-index: 1;">
+        <header>
+            <a href="../index.html" style="text-decoration: none; color: inherit;">
+                <div class="logo" style="display: flex; align-items: center; gap: 10px;">
+                    <img src="../ksiezyc.png" alt="Księżyc" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;" onerror="this.style.display='none'">
+                    <div>breakcode</div>
+                </div>
+            </a>
+            <nav>
+                <a href="../index.html">✦ Strona główna</a>
+                <a href="../blog.html">✦ Blog</a>
+                <a href="../portfolio.html" style="color: var(--accent-moon);">✦ Portfolio</a>
+                <a href="../kontakt.html">✦ Kontakt</a>
+            </nav>
+        </header>
+
+        <main class="project-container">
+            <a href="../portfolio.html" class="back-link">← Powrót do portfolio</a>
+
+            <div class="project-card">
+                <span class="project-meta">AUTORSKI TEMAT // PORTEL.PL // PIERWSZA INICJATYWA</span>
+                <h1 class="project-title">Kadeci z Rycerskiej</h1>
+                
+                <!-- ZDJĘCIE GŁÓWNE PROJEKTU -->
+                <div class="project-banner">
+                    <img src="../projekt-3.jpg" alt="Kadeci z Rycerskiej" onerror="this.style.display='none'">
+                </div>
+
+                <!-- METADANE ARTYKUŁU -->
+                <div class="project-info-grid">
+                    <div>OBIEKT: <span>Klasy mundurowe ul. Rycerska</span></div>
+                    <div>ROLA: <span>Autorski pomysł i realizacja</span></div>
+                    <div>PUBLIKACJA: <span>portEl.pl</span></div>
+                    <div>TYP: <span>Reportaż / Materiał własny</span></div>
+                </div>
+
+                <div class="project-body">
+                    <p>
+                        Podczas stażu w redakcji portEl.pl szybko dowiedziałam się, że praca dziennikarza to nie tylko realizacja zadań narzucanych przez redakcję, ale przede wszystkim samodzielne poszukiwanie ciekawych historii i inicjowanie własnych tematów.
+                    </p>
+
+                    <div class="quote-box">
+                        „To był mój pierwszy w pełni autorski materiał, który sama wymyśliłam, zorganizowałam i napisałam jako stażystka.”
+                    </div>
+
+                    <h3 style="color: #fff; font-family: var(--font-heading); margin: 30px 0 15px 0;">Skąd pomysł</h3>
+                    <p>
+                        Postanowiłam napisać artykuł o klasach mundurowych – i to o tej konkretnej, do której sama na co dzień uczęszczałam przy ul. Rycerskiej. Dzięki temu miałam unikalny, od środka znany punkt widzenia i łatwiejszy dostęp do bohaterów.
+                    </p>
+
+                    <h3 style="color: #fff; font-family: var(--font-heading); margin: 30px 0 15px 0;">O czym jest artykuł</h3>
+                    <p>
+                        W tekście przybliżyłam kulisy nauki kadetów, specyfikę zajęć, wyzwania, z jakimi muszą się mierzyć, oraz to, jak wygląda codzienne życie i pasja młodych ludzi wiążących swoją przyszłość z mundurami.
+                    </p>
+
+                    <h3 style="color: #fff; font-family: var(--font-heading); margin: 30px 0 15px 0;">Znaczenie dla mnie</h3>
+                    <p>
+                        To doświadczenie dało mi ogromną satysfakcję i pokazało, jak ważna w dziennikarstwie jest własna inicjatywa oraz czerpanie z własnych, unikalnych doświadczeń życiowych.
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
