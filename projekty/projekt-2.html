@@ -128,22 +128,22 @@
                 <div class="project-info-grid">
                     <div>TEMATYKA: <span>Sport / Judo</span></div>
                     <div>AUTORKA MATERIAŁU: <span>Katarzyna Cherek</span></div>
-                    <div>DATA PUBLIKACJI: <span>22 marca 2022</span>[cite: 11]</div>
-                    <div>PLATFORMA: <span>portEl.pl</span>[cite: 11]</div>
+                    <div>DATA PUBLIKACJI: <span>22 marca 2022</span></div>
+                    <div>PLATFORMA: <span>portEl.pl</span></div>
                 </div>
 
                 <div class="project-body">
                     <p>
-                        <strong>Szybka selekcja faktów, dbałość o poprawność terminologiczną i precyzyjne relacjonowanie wydarzeń sportowych.</strong> Ten materiał to mój pierwszy w życiu samodzielny artykuł informacyjny, który napisałam w ramach praktyk redakcyjnych na łamach elbląskiego serwisu <strong>portEl.pl</strong>[cite: 11].
+                        <strong>Szybka selekcja faktów, dbałość o poprawność terminologiczną i precyzyjne relacjonowanie wydarzeń sportowych.</strong> Ten materiał to mój pierwszy w życiu samodzielny artykuł informacyjny, który napisałam w ramach praktyk redakcyjnych na łamach elbląskiego serwisu <strong>portEl.pl</strong>.
                     </p>
 
                     <h3 style="color: #fff; font-family: var(--font-heading); margin: 30px 0 15px 0;">Kontekst i Przebieg Wydarzenia</h3>
                     <p>
-                        Artykuł dokumentuje start zawodników klubu <strong>UKS Tomita Judo Elbląg</strong> na prestiżowym <em>XVIII Wielkopolskim Międzynarodowym Turnieju Judo</em>, który odbył się w Suchym Lesie[cite: 11]. W rywalizacji wzięło udział trzech reprezentantów klubu: Sebastian Filipowicz, Dawid Romanowski oraz Hubert Soliwoda[cite: 11].
+                        Artykuł dokumentuje start zawodników klubu <strong>UKS Tomita Judo Elbląg</strong> na prestiżowym <em>XVIII Wielkopolskim Międzynarodowym Turnieju Judo</em>, który odbył się w Suchym Lesie. W rywalizacji wzięło udział trzech reprezentantów klubu: Sebastian Filipowicz, Dawid Romanowski oraz Hubert Soliwoda.
                     </p>
 
                     <div class="quote-box">
-                        „Największy sukces spośród trzech elbląskich reprezentantów odniósł Sebastian Filipowicz, który walczył w kategorii do 73 kg”[cite: 11] – rzetelne zebranie wyników i dynamiczna relacja z walk eliminacyjnych stanowiły klucz do tego materiału.
+                        „Największy sukces spośród trzech elbląskich reprezentantów odniósł Sebastian Filipowicz, który walczył w kategorii do 73 kg” – rzetelne zebranie wyników i dynamiczna relacja z walk eliminacyjnych stanowiły klucz do tego materiału.
                     </div>
 
                     <h3 style="color: #fff; font-family: var(--font-heading); margin: 30px 0 15px 0;">Czego nauczył mnie ten projekt?</h3>
@@ -155,12 +155,39 @@
 
                     <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color);">
                         <a href="https://www.portel.pl/sport/sukcesy-tomity/127985" target="_blank" style="color: var(--accent-moon); text-decoration: none; font-weight: 600;">
-                            ↗ Przeczytaj oryginalny artykuł na portEl.pl[cite: 11]
+                            ↗ Przeczytaj oryginalny artykuł na portEl.pl
                         </a>
                     </div>
                 </div>
             </div>
         </main>
     </div>
+
+    <!-- GLOBALNY SKRYPT LICZNIKA CZASU SESJI -->
+    <script>
+        (function() {
+            let secondsSpent = parseInt(sessionStorage.getItem('breakcode_session_time')) || 0;
+
+            function updateClockAndTimer() {
+                secondsSpent++;
+                sessionStorage.setItem('breakcode_session_time', secondsSpent);
+
+                const mins = Math.floor(secondsSpent / 60).toString().padStart(2, '0');
+                const secs = (secondsSpent % 60).toString().padStart(2, '0');
+
+                const timerEl = document.getElementById('globalSessionTimer');
+                const clockEl = document.getElementById('globalClockTime');
+
+                if (timerEl) timerEl.innerText = `${mins}:${secs}`;
+                if (clockEl) {
+                    const now = new Date();
+                    clockEl.innerText = now.toLocaleTimeString('pl-PL');
+                }
+            }
+
+            updateClockAndTimer();
+            setInterval(updateClockAndTimer, 1000);
+        })();
+    </script>
 </body>
 </html>
