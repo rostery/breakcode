@@ -178,4 +178,16 @@
                 const timerEl = document.getElementById('globalSessionTimer');
                 const clockEl = document.getElementById('globalClockTime');
 
-                if (timerEl
+                if (timerEl) timerEl.innerText = `${mins}:${secs}`;
+                if (clockEl) {
+                    const now = new Date();
+                    clockEl.innerText = now.toLocaleTimeString('pl-PL');
+                }
+            }
+
+            updateClockAndTimer();
+            setInterval(updateClockAndTimer, 1000);
+        })();
+    </script>
+</body>
+</html>
